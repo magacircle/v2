@@ -22,7 +22,7 @@ ul{padding-left:23px}
 .meta{font-size:11px;color:#77776f;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
 .notice{border-left:2px solid var(--gold2);background:#0e1012;padding:15px 17px;margin:24px 0}
 .notice p{margin:0;font-size:13px}
-.footer{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.footer{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}.footer .copyright{color:#77736a}
 .footer a{text-decoration:none;color:#8f8c83}
 .footer a:hover{color:#c9b783}
 .back{display:inline-block;margin-top:28px;text-decoration:none;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8f8c83}

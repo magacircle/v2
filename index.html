@@ -7,156 +7,67 @@
 <title>MagaCircle™ — Building the Parallel Economy</title>
 <meta name="description" content="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™">
 <style>
-:root{color-scheme:dark;--gold:#f0c875;--gold2:#c5a45f;--cream:#f5f2ea;--bg:#050709}
+:root{color-scheme:dark;--gold:#f0c875;--cream:#f5f2ea;--bg:#050709}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;width:100%;min-height:100%;background:var(--bg)}
 body{overflow-x:hidden;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 
-/* MOBILE / PORTRAIT — intentionally preserved from the working version. */
-.mobile-landing{display:block;background:var(--bg)}
-.mobile-mockup{position:relative;width:100%;line-height:0}
-.mobile-mockup img{display:block;width:100%;height:auto}
-.begin-link{position:absolute;display:block;text-decoration:none;border-radius:999px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;z-index:5}
-.begin-link:focus-visible{outline:3px solid rgba(246,205,123,.95);outline-offset:5px}
-.mobile-mockup .begin-link{left:28.4%;top:49.75%;width:43.2%;height:5.75%}
+/* MOBILE / PORTRAIT — preserve the first working full-viewport treatment. */
+.mobile-landing{position:relative;width:100%;height:100dvh;height:100svh;min-height:320px;overflow:hidden;display:grid;place-items:center;isolation:isolate;background:var(--bg)}
+.mobile-landing::before{content:"";position:absolute;inset:-40px;z-index:-2;background:linear-gradient(rgba(5,7,9,.55),rgba(5,7,9,.55)),url('assets/landing-approved-mockup.jpg') center/cover no-repeat;filter:blur(22px);transform:scale(1.06)}
+.mobile-landing::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at center,transparent 35%,rgba(0,0,0,.30) 100%),rgba(5,7,9,.18);pointer-events:none}
+.mobile-mockup{position:relative;width:min(100vw,1024px);height:auto;aspect-ratio:2/3;flex:0 0 auto;line-height:0;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.48)}
+.mobile-mockup img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.begin-link{position:absolute;z-index:5;left:27.6%;top:49.35%;width:44.8%;height:6.35%;display:block;border:0;border-radius:999px;background:transparent;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;text-decoration:none;outline:none}
+.begin-link:focus-visible{outline:3px solid rgba(246,205,123,.98);outline-offset:6px}
+.begin-link:active{background:rgba(246,205,123,.08)}
 
-/* DESKTOP / LAPTOP — rebuilt from the approved logo + copy + natural-aspect scenery.
-   The old cropped landscape artwork is intentionally NOT used here. */
 .desktop-landing{display:none}
-
-.site-footer{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;min-height:40px;padding:10px 14px;background:#050709;color:#77736a;font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:center}
+.site-footer{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;min-height:42px;padding:10px 14px;background:#050709;color:#77736a;font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-align:center}
+.site-footer .copyright{color:#77736a}
 .site-footer a{color:#8f8c83;text-decoration:none}
 .site-footer a:hover{color:#d7bd7e}
 .site-footer .sep{color:#3b3b37}
 
 @media (min-width:769px){
   .mobile-landing{display:none}
-  .desktop-landing{
-    position:relative;
-    display:block;
-    width:100%;
-    height:calc(100dvh - 40px);
-    min-height:620px;
-    overflow:hidden;
-    isolation:isolate;
-    background:#050709;
-  }
-
-  /* The scenery keeps its native 1024:380 ratio. It is never stretched to the
-     viewport height, which prevents the oversized/warped laptop appearance. */
-  .desktop-landing::before{
-    content:"";
-    position:absolute;
-    z-index:-3;
-    left:0;
-    right:0;
-    bottom:0;
-    height:min(62%, 37.1vw);
-    min-height:300px;
-    background-image:url('assets/landing-background.png');
-    background-repeat:no-repeat;
-    background-position:center bottom;
-    background-size:100% auto;
-  }
-  .desktop-landing::after{
-    content:"";
-    position:absolute;
-    z-index:-2;
-    inset:0;
-    pointer-events:none;
-    background:
-      linear-gradient(180deg,
-        rgba(5,7,9,1) 0%,
-        rgba(5,7,9,.96) 24%,
-        rgba(5,7,9,.70) 43%,
-        rgba(5,7,9,.16) 66%,
-        rgba(5,7,9,.20) 100%);
-  }
-
-  .desktop-copy{
-    position:absolute;
-    z-index:2;
-    top:0;
-    left:0;
-    width:100%;
-    height:58%;
-    min-height:360px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-    text-align:center;
-    padding:clamp(28px,5vh,54px) 24px 0;
-  }
-  .desktop-logo{
-    width:clamp(190px,17vw,285px);
-    height:auto;
-    display:block;
-    margin:0 auto clamp(5px,1vh,10px);
-  }
-  .desktop-tagline{
-    margin:0 0 clamp(14px,2vh,25px);
-    color:#e5e0d4;
-    letter-spacing:.27em;
-    font-size:clamp(8px,.7vw,12px);
-    text-transform:uppercase;
-  }
-  .desktop-copy h1{
-    margin:0;
-    max-width:1000px;
-    color:var(--cream);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:clamp(38px,4.45vw,72px);
-    font-weight:800;
-    line-height:.98;
-    letter-spacing:-.045em;
-  }
+  .desktop-landing{position:relative;display:block;width:100%;height:calc(100dvh - 42px);min-height:500px;overflow:hidden;isolation:isolate;background:#050709}
+  /* Natural 1024:480 scenery: full-width, proportional, anchored to bottom. */
+  .desktop-landing::before{content:"";position:absolute;left:0;right:0;bottom:0;height:auto;aspect-ratio:1024/480;z-index:-3;background:url('assets/landing-background-mobile.png') center bottom / 100% auto no-repeat}
+  .desktop-landing::after{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(5,7,9,1) 0%,rgba(5,7,9,.96) 18%,rgba(5,7,9,.72) 38%,rgba(5,7,9,.22) 62%,rgba(5,7,9,.18) 100%)}
+  .desktop-copy{position:relative;z-index:2;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(18px,3.4vh,38px) 24px 0}
+  .desktop-logo{width:clamp(145px,14vw,230px);height:auto;display:block;margin:0 auto clamp(3px,.8vh,8px)}
+  .desktop-tagline{margin:0 0 clamp(10px,1.4vh,17px);color:#e5e0d4;letter-spacing:.27em;font-size:clamp(8px,.62vw,11px);text-transform:uppercase}
+  .desktop-copy h1{margin:0;max-width:980px;color:var(--cream);font-family:Arial,Helvetica,sans-serif;font-size:clamp(36px,4.05vw,66px);font-weight:800;line-height:.98;letter-spacing:-.045em;text-shadow:0 3px 18px rgba(0,0,0,.25)}
   .desktop-copy h1 span{color:#e6b75f;white-space:nowrap}
-  .desktop-copy p{
-    margin:clamp(12px,1.8vh,20px) 0 clamp(14px,2vh,22px);
-    max-width:720px;
-    color:#f0eee8;
-    font-size:clamp(13px,1.15vw,18px);
-    line-height:1.35;
-  }
-  .desktop-begin{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:28px;
-    width:min(360px,31vw);
-    height:clamp(52px,6.5vh,70px);
-    border:2px solid #efc56f;
-    border-radius:999px;
-    background:rgba(0,0,0,.78);
-    box-shadow:0 0 0 1px rgba(255,255,255,.03),0 14px 36px rgba(0,0,0,.30);
-    color:#f0c875;
-    text-decoration:none;
-    font-size:clamp(12px,1vw,16px);
-    font-weight:800;
-    letter-spacing:.2em;
-    line-height:1;
-    transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
-  }
-  .desktop-begin:hover{transform:translateY(-1px);background:rgba(0,0,0,.90);box-shadow:0 16px 40px rgba(0,0,0,.40)}
+  .desktop-copy p{margin:clamp(9px,1.4vh,16px) 0 clamp(11px,1.7vh,19px);max-width:720px;color:#f0eee8;font-size:clamp(13px,1.05vw,17px);line-height:1.35}
+  .desktop-begin{display:flex;align-items:center;justify-content:center;gap:25px;width:min(360px,29vw);height:clamp(48px,6vh,66px);border:2px solid #efc56f;border-radius:999px;background:rgba(0,0,0,.82);box-shadow:0 10px 34px rgba(0,0,0,.28);color:#f0c875;text-decoration:none;font-size:clamp(12px,1vw,16px);font-weight:800;letter-spacing:.2em;line-height:1;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
+  .desktop-begin:hover{transform:translateY(-1px);background:rgba(0,0,0,.93);box-shadow:0 14px 38px rgba(0,0,0,.40)}
   .desktop-begin:focus-visible{outline:3px solid rgba(246,205,123,.95);outline-offset:6px}
-  .desktop-begin .arrow{font-size:clamp(25px,2vw,34px);font-weight:300;line-height:1;letter-spacing:0}
+  .desktop-begin .arrow{font-size:clamp(24px,2vw,33px);font-weight:300;line-height:1;letter-spacing:0}
 
-  /* On shorter laptop screens, tighten the copy without changing its layout. */
   @media (max-height:760px){
-    .desktop-landing{min-height:560px}
-    .desktop-copy{padding-top:24px;height:60%;min-height:340px}
-    .desktop-logo{width:clamp(165px,15vw,230px)}
-    .desktop-tagline{margin-bottom:10px;font-size:8px}
-    .desktop-copy h1{font-size:clamp(34px,4vw,58px)}
-    .desktop-copy p{margin:9px 0 12px;font-size:13px}
-    .desktop-begin{width:300px;height:50px}
+    .desktop-copy{padding-top:15px}
+    .desktop-logo{width:clamp(135px,12.5vw,200px);margin-bottom:2px}
+    .desktop-tagline{margin-bottom:7px;font-size:8px}
+    .desktop-copy h1{font-size:clamp(32px,3.7vw,54px)}
+    .desktop-copy p{margin:7px 0 9px;font-size:12.5px}
+    .desktop-begin{width:285px;height:47px}
+    .desktop-begin .arrow{font-size:23px}
   }
 }
 
-@media (max-width:768px){
-  .mobile-landing{min-height:100dvh}
+@media (max-width:1024px) and (orientation:portrait){
+  .mobile-mockup{width:auto;height:100dvh;max-height:1536px;max-width:none}
 }
+
+@media (max-height:560px) and (max-width:1024px){
+  .mobile-landing{height:100dvh}
+  .mobile-mockup{width:100vw;height:auto}
+}
+
+@media (max-width:600px){.mobile-mockup{box-shadow:none}}
+@media (prefers-reduced-motion:reduce){.desktop-begin{transition:none}}
 </style>
 </head>
 <body>
@@ -178,11 +89,12 @@ body{overflow-x:hidden;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"
     </div>
   </section>
 
-  <nav class="site-footer" aria-label="Legal navigation">
-    <a href="index.html">MagaCircle™ Home</a><span class="sep">•</span>
-    <a href="quiz.html">Builder Quiz</a><span class="sep">•</span>
-    <a href="privacy.html">Privacy Policy</a><span class="sep">•</span>
-    <a href="terms.html">Terms &amp; Conditions</a>
+  <nav class="site-footer" aria-label="Site navigation">
+    <span class="copyright">Copyright © 2026 MagaCircle™</span><span class="sep">•</span>
+    <a href="index.html">Home</a><span class="sep">•</span>
+    <a href="quiz.html">Quiz</a><span class="sep">•</span>
+    <a href="privacy.html">Privacy</a><span class="sep">•</span>
+    <a href="terms.html">Terms</a>
   </nav>
 </main>
 </body>
