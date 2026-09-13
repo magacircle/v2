@@ -7,191 +7,114 @@
 <title>MagaCircle™ — Building the Parallel Economy</title>
 <meta name="description" content="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™">
 <style>
-  :root {
-    color-scheme: dark;
-    --gold: #f6cd7b;
-    --bg: #050709;
-  }
-
+  :root { color-scheme: dark; }
   * { box-sizing: border-box; }
-
   html, body {
-    width: 100%;
-    min-height: 100%;
     margin: 0;
     padding: 0;
-    background: var(--bg);
+    width: 100%;
+    min-height: 100%;
+    background: #050709;
   }
-
   body {
-    overflow: hidden;
-    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
   }
 
-  /*
-   * The page is a full-viewport stage. The blurred copy of the artwork
-   * fills any space that the 2:3 portrait artwork cannot naturally occupy.
-   * This removes the hard black gutters on wide screens without stretching
-   * the approved artwork.
-   */
   .landing {
     position: relative;
     width: 100%;
-    height: 100vh;
-    height: 100svh;
-    height: 100dvh;
-    min-height: 320px;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-    isolation: isolate;
-    background: var(--bg);
-  }
-
-  .landing::before {
-    content: "";
-    position: absolute;
-    inset: -40px;
-    z-index: -2;
-    background:
-      linear-gradient(rgba(5,7,9,.55), rgba(5,7,9,.55)),
-      url("assets/landing-approved-mockup.jpg") center / cover no-repeat;
-    filter: blur(22px);
-    transform: scale(1.06);
-  }
-
-  .landing::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background:
-      radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.30) 100%),
-      rgba(5,7,9,.18);
-    pointer-events: none;
+    min-height: 100dvh;
+    background: #050709;
   }
 
   .mockup {
     position: relative;
-    width: min(100vw, 1024px);
-    height: auto;
-    aspect-ratio: 2 / 3;
-    flex: 0 0 auto;
+    width: 100%;
     line-height: 0;
-    overflow: hidden;
-    box-shadow: 0 24px 80px rgba(0,0,0,.48);
   }
 
+  .mockup picture,
   .mockup img {
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    user-select: none;
-    -webkit-user-drag: none;
-    pointer-events: none;
+    height: auto;
   }
 
-  /*
-   * The artwork already contains the visible button. This is an invisible,
-   * keyboard/touch-accessible hit target placed in the SAME coordinate system
-   * as the artwork, so it scales with the image instead of drifting away.
-   */
   .begin-link {
     position: absolute;
-    z-index: 5;
-    left: 27.6%;
-    top: 49.35%;
-    width: 44.8%;
-    height: 6.35%;
     display: block;
-    border: 0;
-    border-radius: 999px;
-    background: transparent;
-    cursor: pointer;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
     text-decoration: none;
-    outline: none;
-  }
-
-  .begin-link::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
+    border-radius: 999px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    z-index: 5;
   }
 
   .begin-link:focus-visible {
-    outline: 3px solid rgba(246,205,123,.98);
-    outline-offset: 6px;
-  }
-
-  .begin-link:active::after {
-    background: rgba(246,205,123,.08);
-  }
-
-  /* Desktop / laptop: keep the approved 2:3 artwork intact. */
-  @media (min-width: 1025px) {
-    .mockup {
-      height: min(100dvh, 1536px);
-      width: auto;
-      max-width: 1024px;
-    }
+    outline: 3px solid rgba(246, 205, 123, .95);
+    outline-offset: 5px;
   }
 
   /*
-   * Portrait phones/tablets: fit the entire artwork to the viewport height.
-   * The tiny amount of side crop that can occur is intentional; it prevents
-   * the empty area underneath the design that occurred with width-only scaling.
-   */
-  @media (max-width: 1024px) and (orientation: portrait) {
-    .mockup {
-      width: auto;
-      height: 100dvh;
-      max-height: 1536px;
-      max-width: none;
-    }
+     MOBILE / PORTRAIT
+     The approved portrait artwork is used below the desktop breakpoint.
+     The CTA coordinates are tied to the artwork itself, so the hit area
+     scales exactly with the visible button.
+  */
+  .begin-link {
+    left: 28.4%;
+    top: 49.75%;
+    width: 43.2%;
+    height: 5.75%;
   }
 
   /*
-   * Very short screens: width becomes the limiting dimension so the artwork
-   * never gets pushed beyond the viewport.
-   */
-  @media (max-height: 560px) and (max-width: 1024px) {
+     DESKTOP / LAPTOP
+     Use the approved landscape composition and let it grow to the full
+     browser width. There is deliberately NO max-width container here.
+     This is what removes the old "mobile card in the middle" effect.
+  */
+  @media (min-width: 769px) {
     .mockup {
       width: 100vw;
-      height: auto;
+      max-width: none;
+    }
+
+    .begin-link {
+      left: 29.5%;
+      top: 23.75%;
+      width: 41%;
+      height: 8.9%;
     }
   }
 
-  /* Reduce shadow on small screens for a cleaner edge-to-edge presentation. */
-  @media (max-width: 600px) {
+  /* Extra-wide displays: keep the artwork edge-to-edge without gutters. */
+  @media (min-width: 1600px) {
     .mockup {
-      box-shadow: none;
+      width: 100%;
     }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .begin-link { transition: none; }
   }
 </style>
 </head>
 <body>
 <main class="landing" aria-label="MagaCircle™ landing page">
   <div class="mockup">
-    <img
-      src="assets/landing-approved-mockup.png"
-      width="1024"
-      height="1536"
-      alt="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™"
-      draggable="false"
-    >
+    <picture>
+      <!-- True desktop/laptop composition: fills the viewport horizontally. -->
+      <source media="(min-width: 769px)" srcset="assets/landing-landscape.png">
+      <!-- Mobile/tablet portrait composition: preserves the version that tested well. -->
+      <img
+        src="assets/landing-approved-mockup.png"
+        width="1024"
+        height="1536"
+        alt="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™"
+      >
+    </picture>
+
     <a
       class="begin-link"
-      href="./quiz.html"
+      href="quiz.html"
       aria-label="Let's begin the MagaCircle™ quiz"
-      title="Let's begin"
     ></a>
   </div>
 </main>
