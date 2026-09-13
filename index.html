@@ -11,7 +11,7 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0;padding:0;width:100%;min-height:100%;background:var(--ink)}
-body{font-family:Arial,Helvetica,sans-serif;color:#fff;overflow-x:hidden}
+body{font-family:Arial,Helvetica,sans-serif;color:#fff;overflow-x:hidden;overflow-y:auto}
 
 /* The landing page is built from the approved portrait composition, but its
    geometry is CSS-driven. This prevents a portrait bitmap from becoming a
@@ -77,8 +77,13 @@ h1 .gold{color:var(--gold)}
    * the visual remains pixel-faithful while the button stays accessible/clickable.
    */
   .landing{
-    height:100dvh;
-    min-height:100dvh;
+    /* Keep the artwork at one stable mobile height. Using dvh here makes
+       Android Chrome rescale the entire approved image as browser chrome
+       expands/collapses during scroll, which makes the baked-in copy appear
+       to grow and shrink. svh is intentionally stable; the footer below the
+       hero provides the page scroll instead. */
+    height:100svh;
+    min-height:100svh;
     overflow:hidden;
     background:#05090d;
   }
