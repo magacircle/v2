@@ -12,21 +12,15 @@
 html,body{margin:0;padding:0;width:100%;min-height:100%;background:var(--bg)}
 body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
 
-/*
-  The approved artwork is a 2:3 composition. It is NEVER stretched or cropped.
-  The viewport stage uses svh so mobile browser chrome cannot resize the artwork
-  while the visitor scrolls to the footer. Any space outside the artwork is filled
-  with the same artwork, softly blurred/darkened, so the desktop treatment matches
-  the mobile lighting and color palette instead of introducing a different scene.
-*/
 .landing{
   position:relative;
   width:100%;
-  height:100svh;
+  height:100dvh;
   min-height:320px;
   overflow:hidden;
-  display:grid;
-  place-items:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   isolation:isolate;
   background:var(--bg);
 }
@@ -52,12 +46,14 @@ body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
   background:radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.34) 100%);
 }
 
+/* Portrait/mobile: the approved 2:3 artwork is always shown at its native ratio,
+   centered in the viewport with no stretching or horizontal drift. */
 .mockup{
   position:relative;
-  width:auto;
-  height:100svh;
-  max-height:1536px;
-  max-width:1024px;
+  width:min(100vw, 66.6667dvh);
+  height:auto;
+  max-height:100dvh;
+  max-width:100vw;
   aspect-ratio:2 / 3;
   flex:0 0 auto;
   line-height:0;
@@ -65,6 +61,7 @@ body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
   box-shadow:0 24px 80px rgba(0,0,0,.42);
 }
 
+ .mockup picture{display:block;width:100%;height:100%}
 .mockup img{
   display:block;
   width:100%;
@@ -75,7 +72,6 @@ body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
   pointer-events:none;
 }
 
-/* The visible button in the approved artwork is the clickable target. */
 .begin-link{
   position:absolute;
   z-index:5;
@@ -96,19 +92,52 @@ body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
 .begin-link:focus-visible{outline:3px solid rgba(246,205,123,.98);outline-offset:6px}
 .begin-link:active{background:rgba(246,205,123,.08)}
 
-/* Short screens: width becomes the limiting dimension, preventing any crop. */
-@media (max-height:560px){
-  .landing{height:100svh}
-  .mockup{width:100vw;height:auto;max-height:none}
+@media (max-height:560px) and (orientation:portrait){
+  .mockup{width:min(100vw,66.6667dvh);height:auto;max-width:100vw;max-height:100dvh}
+}
+
+/* True landscape experience for tablets, laptops and desktops.
+   The desktop artwork is already 16:9, so it fills the viewport directly:
+   no CSS stretching/cropping of the portrait artwork. */
+@media (orientation:landscape) and (min-width:768px){
+  .landing{
+    height:100dvh;
+    min-height:320px;
+    display:block;
+    background:#050709;
+  }
+  .landing::before{
+    background:
+      linear-gradient(rgba(5,7,9,.20),rgba(5,7,9,.20)),
+      url("assets/landing-desktop-landscape.png") center / cover no-repeat;
+    filter:blur(18px);
+  }
+  .landing::after{
+    background:radial-gradient(circle at center,transparent 38%,rgba(0,0,0,.26) 100%);
+  }
+  .mockup{
+    width:100%;
+    height:100%;
+    max-width:none;
+    max-height:none;
+    aspect-ratio:16 / 9;
+    box-shadow:none;
+  }
+  .mockup img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+  .begin-link{
+    left:41.6%;
+    top:49.35%;
+    width:16.8%;
+    height:6.35%;
+  }
 }
 
 @media (max-width:600px){
   .mockup{box-shadow:none}
-}
-
-/* Keep the mobile composition identical on portrait tablets. */
-@media (max-width:1024px) and (orientation:portrait){
-  .mockup{height:100svh;width:auto;max-width:none}
 }
 
 .site-footer{
@@ -129,7 +158,6 @@ body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
 .site-footer .copyright{color:#77736a}
 .site-footer a{color:#8f8c83;text-decoration:none}
 .site-footer a:hover{color:#d7bd7e}
-.site-footer .sep{color:#3b3b37}
 
 @media (prefers-reduced-motion:reduce){.begin-link{transition:none}}
 </style>
@@ -138,13 +166,16 @@ body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
 <main aria-label="MagaCircle™ landing page">
   <section class="landing">
     <div class="mockup">
-      <img
-        src="assets/landing-approved-mockup.png"
-        width="1024"
-        height="1536"
-        alt="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™"
-        draggable="false"
-      >
+      <picture>
+        <source media="(orientation: landscape) and (min-width: 768px)" srcset="assets/landing-desktop-landscape.png">
+        <img
+          src="assets/landing-approved-mockup.png"
+          width="1024"
+          height="1536"
+          alt="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™"
+          draggable="false"
+        >
+      </picture>
       <a class="begin-link" href="quiz.html" aria-label="Let's begin the MagaCircle™ quiz" title="Let's begin"></a>
     </div>
   </section>
