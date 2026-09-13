@@ -5,69 +5,238 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#050607">
 <title>MagaCircle™ — Building the Parallel Economy</title>
-<meta name="description" content="MagaCircle™ — Building the Parallel Economy. Take the Builder Profile quiz to see if you qualify.">
+<meta name="description" content="MagaCircle™ — Building the Parallel Economy. Take the Builder Profile quiz to see if you qualify for the MagaCircle™ Founders Waitlist.">
 <style>
-  :root { color-scheme: dark; }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; min-height: 100%; background: #050607; }
-  body { overflow-x: hidden; }
-  .landing {
-    min-height: 100svh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background: #050607;
+  :root{
+    color-scheme:dark;
+    --black:#050607;
+    --ivory:#f2f0eb;
+    --gold:#d2b671;
   }
-  .poster {
-    position: relative;
-    width: min(100%, 1024px);
-    line-height: 0;
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;min-height:100%;background:var(--black)}
+  body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+
+  .landing{
+    position:relative;
+    width:100%;
+    min-height:100svh;
+    min-height:100dvh;
+    display:grid;
+    grid-template-rows:minmax(0,58svh) minmax(0,42svh);
+    background:var(--black);
+    isolation:isolate;
+    overflow:hidden;
   }
-  .poster img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: 1024px;
+
+  .upper{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    text-align:center;
+    padding:clamp(24px,5vh,58px) clamp(18px,4vw,60px) 0;
+    background:
+      radial-gradient(ellipse at 50% 72%,rgba(42,48,53,.30) 0%,rgba(5,6,7,0) 52%),
+      linear-gradient(to bottom,#050607 0%,#07090a 72%,rgba(7,9,10,.88) 100%);
   }
-  .quiz-hotspot {
-    position: absolute;
-    left: 29.5%;
-    top: 51.4%;
-    width: 41%;
-    height: 6.1%;
-    display: block;
-    border-radius: 999px;
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
+
+  .brand{
+    width:clamp(190px,28vw,390px);
+    max-width:76vw;
+    height:auto;
+    display:block;
+    opacity:.92;
   }
-  .quiz-hotspot:focus-visible {
-    outline: 2px solid rgba(210, 182, 113, .95);
-    outline-offset: 5px;
+
+  .tagline{
+    margin-top:clamp(10px,1.8vh,20px);
+    color:var(--ivory);
+    font-size:clamp(10px,1.25vw,17px);
+    line-height:1.15;
+    letter-spacing:clamp(3px,.65vw,8px);
+    font-weight:400;
+    white-space:nowrap;
   }
-  @media (min-width: 1025px) {
-    .landing { align-items: center; padding: 24px 0; }
-    .poster { box-shadow: 0 24px 80px rgba(0,0,0,.45); }
+
+  .copy{
+    width:min(920px,100%);
+    margin:auto;
+    padding-bottom:clamp(20px,3vh,38px);
   }
-  @media (max-width: 480px) {
-    .landing { align-items: flex-start; }
+
+  h1{
+    margin:0;
+    color:var(--ivory);
+    font-size:clamp(34px,5.15vw,76px);
+    line-height:.96;
+    letter-spacing:-.045em;
+    font-weight:800;
   }
-  @media (prefers-reduced-motion: reduce) {
-    * { scroll-behavior: auto !important; }
+  h1 .gold{color:var(--gold)}
+
+  .sub{
+    width:min(720px,100%);
+    margin:clamp(16px,2.7vh,30px) auto 0;
+    color:rgba(242,240,235,.94);
+    font-size:clamp(14px,1.7vw,24px);
+    line-height:1.4;
+    font-weight:400;
   }
+
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(13px,1.5vw,22px);
+    width:clamp(230px,31vw,410px);
+    height:clamp(54px,7vh,78px);
+    margin-top:clamp(20px,3.1vh,34px);
+    border:2px solid var(--gold);
+    border-radius:999px;
+    background:rgba(3,4,5,.78);
+    color:var(--gold);
+    text-decoration:none;
+    font-size:clamp(14px,1.35vw,20px);
+    font-weight:700;
+    letter-spacing:clamp(2.5px,.5vw,6px);
+    box-shadow:0 8px 28px rgba(0,0,0,.28);
+    transition:background .2s ease,transform .2s ease;
+  }
+  .cta .arrow{font-size:clamp(23px,2vw,31px);line-height:1;font-weight:300;transform:translateY(-1px)}
+  .cta:hover{background:rgba(10,11,12,.92);transform:translateY(-1px)}
+  .cta:focus-visible{outline:2px solid var(--ivory);outline-offset:5px}
+
+  .lower{
+    position:relative;
+    z-index:1;
+    overflow:hidden;
+    background:#050607;
+  }
+  .lower::before{
+    content:"";
+    position:absolute;
+    inset:-8% -2% -2%;
+    background-image:url("assets/scenery_900.png");
+    background-repeat:no-repeat;
+    background-position:center 34%;
+    background-size:cover;
+    transform:scale(1.02);
+    filter:saturate(.82) brightness(.76);
+  }
+  .lower::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(to bottom,rgba(5,6,7,.88) 0%,rgba(5,6,7,.18) 22%,rgba(5,6,7,.02) 52%,rgba(5,6,7,.42) 100%),
+      linear-gradient(to right,rgba(5,6,7,.14),transparent 28%,transparent 72%,rgba(5,6,7,.14));
+  }
+
+  .footer{
+    position:absolute;
+    z-index:3;
+    left:0;
+    right:0;
+    bottom:max(14px,env(safe-area-inset-bottom));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:clamp(8px,1.5vh,14px);
+    pointer-events:none;
+  }
+  .circle-mark{
+    width:clamp(42px,4.4vw,60px);
+    aspect-ratio:1;
+    border:3px solid var(--gold);
+    border-right-color:transparent;
+    border-radius:50%;
+    transform:rotate(-22deg);
+    opacity:.88;
+  }
+  .footer-text{
+    color:var(--ivory);
+    font-size:clamp(9px,1.05vw,15px);
+    line-height:1.2;
+    letter-spacing:clamp(2.5px,.52vw,6px);
+    text-align:center;
+    white-space:nowrap;
+  }
+
+  .grain{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    pointer-events:none;
+    opacity:.025;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  }
+
+  @media (max-width:700px){
+    .landing{
+      grid-template-rows:minmax(0,56svh) minmax(0,44svh);
+    }
+    .upper{padding:clamp(20px,4.2vh,36px) 16px 0}
+    .brand{width:clamp(185px,58vw,285px)}
+    .tagline{font-size:clamp(8px,2.55vw,12px);letter-spacing:clamp(2.4px,1vw,4.5px);margin-top:10px}
+    .copy{padding-bottom:clamp(12px,2vh,22px)}
+    h1{font-size:clamp(33px,9.9vw,52px);line-height:.98}
+    .sub{font-size:clamp(14px,4.15vw,18px);line-height:1.38;margin-top:18px}
+    .desktop-break{display:none}
+    .cta{width:min(86vw,330px);height:58px;margin-top:21px;font-size:14px;letter-spacing:3.2px}
+    .lower::before{inset:-10% -24% -2%;background-position:center 36%;background-size:cover;filter:saturate(.8) brightness(.72)}
+    .lower::after{background:linear-gradient(to bottom,rgba(5,6,7,.72) 0%,rgba(5,6,7,.08) 30%,rgba(5,6,7,.30) 100%)}
+    .footer{bottom:max(10px,env(safe-area-inset-bottom));gap:8px}
+    .circle-mark{width:44px}
+    .footer-text{font-size:9px;letter-spacing:2.5px}
+  }
+
+  @media (max-width:380px){
+    .landing{grid-template-rows:minmax(0,57svh) minmax(0,43svh)}
+    .upper{padding-left:13px;padding-right:13px}
+    .brand{width:190px}
+    .tagline{font-size:8px;letter-spacing:2.2px}
+    h1{font-size:32px}
+    .sub{font-size:14px;margin-top:16px}
+    .cta{width:88vw;height:55px;margin-top:19px;font-size:13px;letter-spacing:2.8px}
+  }
+
+  @media (min-width:701px) and (max-height:720px){
+    .landing{grid-template-rows:minmax(0,57svh) minmax(0,43svh)}
+    .upper{padding-top:22px}
+    .brand{width:clamp(180px,23vw,300px)}
+    .tagline{margin-top:8px}
+    h1{font-size:clamp(32px,4.5vw,58px)}
+    .sub{margin-top:13px;font-size:clamp(14px,1.45vw,20px)}
+    .cta{height:54px;margin-top:16px}
+  }
+
+  @media (prefers-reduced-motion:reduce){.cta{transition:none}}
 </style>
 </head>
 <body>
 <main class="landing">
-  <section class="poster" aria-label="MagaCircle™ landing page">
-    <img
-      src="assets/landing-hero.png"
-      alt="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify. The first circle is forming."
-      width="1024"
-      height="1536"
-    >
-    <a class="quiz-hotspot" href="quiz.html" aria-label="Let's begin the MagaCircle™ Builder Profile quiz"></a>
+  <section class="upper" aria-labelledby="headline">
+    <img class="brand" src="assets/MagaCircle_logo_transparent.png" alt="MagaCircle™">
+    <div class="tagline">BUILDING THE PARALLEL ECONOMY</div>
+    <div class="copy">
+      <h1 id="headline">What would you do<br>with <span class="gold">$50K?</span></h1>
+      <p class="sub">Take the quiz to see if you qualify for<br class="desktop-break"> the MagaCircle™ Founders Waitlist.</p>
+      <a class="cta" href="quiz.html" aria-label="Let's begin the MagaCircle Builder Profile quiz">
+        <span>LET’S BEGIN</span><span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
   </section>
+
+  <section class="lower" aria-label="MagaCircle™ community landscape">
+    <footer class="footer">
+      <div class="circle-mark" aria-hidden="true"></div>
+      <div class="footer-text">THE FIRST CIRCLE IS FORMING.</div>
+    </footer>
+  </section>
+  <div class="grain" aria-hidden="true"></div>
 </main>
 </body>
 </html>
