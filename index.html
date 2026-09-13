@@ -1,192 +1,239 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#050709">
-<title>MagaCircle™ — Building the Parallel Economy</title>
-<meta name="description" content="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™">
-<style>
-:root{color-scheme:dark;--gold:#f6cd7b;--bg:#050709}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;min-height:100%;background:var(--bg)}
-body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MagaCircle™</title>
+  <meta name="description" content="The First Circle is Forming. Join MagaCircle™ today.">
 
-.landing{
-  position:relative;
-  width:100%;
-  height:100dvh;
-  min-height:320px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  isolation:isolate;
-  background:var(--bg);
-}
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/MagaCircle_logo_transparent.png">
 
-.landing::before{
-  content:"";
-  position:absolute;
-  inset:-48px;
-  z-index:-2;
-  background:
-    linear-gradient(rgba(5,7,9,.46),rgba(5,7,9,.46)),
-    url("assets/landing-approved-mockup.jpg") center / cover no-repeat;
-  filter:blur(24px);
-  transform:scale(1.07);
-}
+  <style>
+    /* ==========================================================================
+       1. GLOBAL RESET & BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.landing::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  background:radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.34) 100%);
-}
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      min-height: 100dvh;
+      background-color: #080e1b; /* Seamless deep navy matching the artwork sky */
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-/* Portrait/mobile: the approved 2:3 artwork is always shown at its native ratio,
-   centered in the viewport with no stretching or horizontal drift. */
-.mockup{
-  position:relative;
-  width:min(100vw, 66.6667dvh);
-  height:auto;
-  max-height:100dvh;
-  max-width:100vw;
-  aspect-ratio:2 / 3;
-  flex:0 0 auto;
-  line-height:0;
-  overflow:visible;
-  box-shadow:0 24px 80px rgba(0,0,0,.42);
-}
+    /* Outer stage that guarantees dead-center alignment on all screens */
+    .viewport-container {
+      min-height: 100vh;
+      min-height: 100dvh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: env(safe-area-inset-top, 10px) env(safe-area-inset-right, 10px) env(safe-area-inset-bottom, 12px) env(safe-area-inset-left, 10px);
+    }
 
- .mockup picture{display:block;width:100%;height:100%}
-.mockup img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  user-select:none;
-  -webkit-user-drag:none;
-  pointer-events:none;
-}
+    /* ==========================================================================
+       2. HERO ARTWORK CONTAINER
+       ========================================================================== */
+    .hero-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      flex: 1 1 auto;
+      margin: 0 auto;
+    }
 
-.begin-link{
-  position:absolute;
-  z-index:5;
-  left:27.6%;
-  top:49.35%;
-  width:44.8%;
-  height:6.35%;
-  display:block;
-  border:0;
-  border-radius:999px;
-  background:transparent;
-  cursor:pointer;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-  text-decoration:none;
-  outline:none;
-}
-.begin-link:focus-visible{outline:3px solid rgba(246,205,123,.98);outline-offset:6px}
-.begin-link:active{background:rgba(246,205,123,.08)}
+    .hero-stage {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      line-height: 0; /* Prevents inline gap underneath image */
+    }
 
-@media (max-height:560px) and (orientation:portrait){
-  .mockup{width:min(100vw,66.6667dvh);height:auto;max-width:100vw;max-height:100dvh}
-}
+    /* Image sizing: perfectly contained, never cropped, never distorted */
+    .hero-image {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 96vw;
+      max-height: 86dvh;
+      object-fit: contain;
+      margin: 0 auto;
+      border-radius: 4px;
+      user-select: none;
+      -webkit-user-drag: none;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+    }
 
-/* True landscape experience for tablets, laptops and desktops.
-   The desktop artwork is already 16:9, so it fills the viewport directly:
-   no CSS stretching/cropping of the portrait artwork. */
-@media (orientation:landscape) and (min-width:768px){
-  .landing{
-    height:100dvh;
-    min-height:320px;
-    display:block;
-    background:#050709;
-  }
-  .landing::before{
-    background:
-      linear-gradient(rgba(5,7,9,.20),rgba(5,7,9,.20)),
-      url("assets/landing-desktop-landscape.png") center / cover no-repeat;
-    filter:blur(18px);
-  }
-  .landing::after{
-    background:radial-gradient(circle at center,transparent 38%,rgba(0,0,0,.26) 100%);
-  }
-  .mockup{
-    width:100%;
-    height:100%;
-    max-width:none;
-    max-height:none;
-    aspect-ratio:16 / 9;
-    box-shadow:none;
-  }
-  .mockup img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-  }
-  .begin-link{
-    left:41.6%;
-    top:49.35%;
-    width:16.8%;
-    height:6.35%;
-  }
-}
+    /* ==========================================================================
+       3. INTERACTIVE CTA HOTSPOT & OVERLAYS
+       ========================================================================== */
+    /* Mobile / Portrait CTA hotspot coordinates */
+    .cta-hotspot {
+      position: absolute;
+      top: 67%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 74%;
+      height: 7.5%;
+      border-radius: 50px;
+      display: block;
+      z-index: 10;
+      text-decoration: none;
+      background: transparent;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-@media (max-width:600px){
-  .mockup{box-shadow:none}
-}
+    .cta-hotspot:hover,
+    .cta-hotspot:focus-visible {
+      transform: translate(-50%, -50%) scale(1.02);
+      box-shadow: 0 0 25px rgba(230, 57, 70, 0.65);
+    }
 
-.site-footer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:14px;
-  flex-wrap:wrap;
-  min-height:42px;
-  padding:10px 14px;
-  background:#050709;
-  color:#77736a;
-  font-size:10px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  text-align:center;
-}
-.site-footer .copyright{color:#77736a}
-.site-footer a{color:#8f8c83;text-decoration:none}
-.site-footer a:hover{color:#d7bd7e}
+    /* Entire artwork is also clickable directly to the quiz */
+    .artwork-link {
+      display: inline-block;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
 
-@media (prefers-reduced-motion:reduce){.begin-link{transition:none}}
-</style>
+    /* ==========================================================================
+       4. FOOTER & LEGAL LINKS
+       ========================================================================== */
+    .site-footer {
+      width: 100%;
+      text-align: center;
+      padding: 12px 16px 8px;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+
+    .site-footer a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.2s ease;
+    }
+
+    .site-footer a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .site-footer .divider {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ==========================================================================
+       5. RESPONSIVE BREAKPOINTS (TABLETS & DESKTOP LANDSCAPE)
+       ========================================================================== */
+
+    /* For laptops, desktop monitors & landscape tablets */
+    @media (orientation: landscape) and (min-width: 768px) {
+      .viewport-container {
+        padding: 12px 24px;
+        justify-content: center;
+      }
+
+      .hero-image {
+        max-width: 95vw;
+        max-height: 85dvh;
+      }
+
+      /* Re-calibrated hotspot for the 16:9 desktop landscape asset */
+      .cta-hotspot {
+        top: 66.5%;
+        left: 50%;
+        width: 28%;
+        height: 8%;
+      }
+    }
+
+    /* Very short vertical screens (e.g. laptop with URL bar/dev tools open) */
+    @media (max-height: 650px) and (orientation: landscape) {
+      .hero-image {
+        max-height: 80dvh;
+      }
+      .site-footer {
+        padding: 4px 16px;
+        font-size: 0.7rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<main aria-label="MagaCircle™ landing page">
-  <section class="landing">
-    <div class="mockup">
-      <picture>
-        <source media="(orientation: landscape) and (min-width: 768px)" srcset="assets/landing-desktop-landscape.png">
-        <img
-          src="assets/landing-approved-mockup.png"
-          width="1024"
-          height="1536"
-          alt="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™"
-          draggable="false"
-        >
-      </picture>
-      <a class="begin-link" href="quiz.html" aria-label="Let's begin the MagaCircle™ quiz" title="Let's begin"></a>
-    </div>
-  </section>
 
-  <nav class="site-footer" aria-label="Site navigation">
-    <span class="copyright">Copyright © 2026 MagaCircle™</span><span class="sep">•</span>
-    <a href="index.html">Home</a><span class="sep">•</span>
-    <a href="quiz.html">Quiz</a><span class="sep">•</span>
-    <a href="privacy.html">Privacy</a><span class="sep">•</span>
-    <a href="terms.html">Terms</a>
-  </nav>
-</main>
+  <main class="viewport-container">
+    <div class="hero-wrapper">
+      <div class="hero-stage">
+        <!-- Whole hero links to quiz.html for effortless tapping/clicking -->
+        <a href="quiz.html" class="artwork-link" aria-label="Join MagaCircle - The First Circle is Forming">
+          <picture>
+            <!-- 1. Landscape Laptops & Desktops: loads dedicated landscape composition -->
+            <source 
+              media="(orientation: landscape) and (min-width: 768px)" 
+              srcset="assets/landing-desktop-landscape.png">
+            
+            <!-- Fallback for other wide ratios if desktop-landscape is not available -->
+            <source 
+              media="(orientation: landscape) and (min-width: 768px)" 
+              srcset="assets/landing-landscape.png">
+
+            <!-- 2. Mobile phones & Portrait tablets: loads original approved portrait design -->
+            <source 
+              media="(orientation: portrait)" 
+              srcset="assets/landing-hero.png">
+
+            <!-- Default Image Fallback -->
+            <img 
+              src="assets/landing-hero.png" 
+              alt="MagaCircle™ - The First Circle is Forming" 
+              class="hero-image"
+              loading="eager"
+              onerror="this.onerror=null; this.src='assets/landing-approved-mockup.png';">
+          </picture>
+
+          <!-- Hotspot directly over the 'JOIN THE CIRCLE' button -->
+          <span class="cta-hotspot" role="button" aria-label="Join the Circle"></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Legal and Safe Area Footer -->
+    <footer class="site-footer">
+      <p>
+        &copy; <span id="current-year"></span> MagaCircle™. All rights reserved.
+        <span class="divider">|</span>
+        <a href="privacy.html">Privacy Policy</a>
+        <span class="divider">|</span>
+        <a href="terms.html">Terms of Service</a>
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    // Keep copyright year current automatically
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
