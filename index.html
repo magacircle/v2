@@ -61,18 +61,78 @@ h1 .gold{color:var(--gold)}
 /* Phones: use the approved portrait scenery and center every content block
    against the actual viewport. No fixed-width inner column and no transform. */
 @media (max-width:600px) and (orientation:portrait){
-  .landing{min-height:calc(100svh - 74px);height:calc(100svh - 74px)}
-  .landing::before{background-image:url("assets/landing-background-portrait.png");background-size:cover;background-position:center bottom}
-  .landing::after{background:linear-gradient(to bottom,rgba(2,7,11,.84) 0%,rgba(2,7,11,.50) 42%,rgba(2,7,11,.08) 72%,rgba(2,7,11,.12) 100%)}
-  .content{padding:24px 16px 18px}
-  .logo{width:min(86vw,430px)}
-  .tagline{font-size:clamp(11px,3.3vw,15px);letter-spacing:.30em;margin-top:13px}
-  .hero-copy{margin-top:clamp(30px,6vh,58px);width:100%}
-  h1{font-size:clamp(37px,10.5vw,52px);line-height:1.02;letter-spacing:-.045em}
-  .subcopy{font-size:clamp(17px,4.7vw,22px);margin-top:20px;max-width:360px}
-  .cta{width:min(84vw,390px);min-height:60px;margin-top:24px;font-size:17px;gap:22px}
-  .bottom{bottom:18px;gap:8px}.ring{width:46px;height:46px}.bottom-text{font-size:10px;letter-spacing:.24em}
-  .site-footer{height:74px;gap:7px 11px;font-size:8px;padding:9px 10px}
+  /*
+   * MOBILE IS LOCKED TO THE APPROVED 1024x1536 COMPOSITION.
+   *
+   * The approved mockup is deliberately used as one complete visual on phones.
+   * It is scaled by HEIGHT and centered on the viewport. Because the source and
+   * viewport have different aspect ratios, only the left/right edges crop;
+   * the approved vertical composition never gets stretched, offset, or rebuilt
+   * with independent text positioning.
+   *
+   * The original artwork already contains the logo, tagline, headline, subcopy,
+   * CTA, ring and bottom line. The DOM copy is hidden here to prevent duplicate
+   * text. A transparent real link is placed exactly over the approved CTA so
+   * the visual remains pixel-faithful while the button stays accessible/clickable.
+   */
+  .landing{
+    height:calc(100svh - 74px);
+    min-height:0;
+    overflow:hidden;
+    background:#05090d;
+  }
+
+  .landing::before{
+    background-image:url("assets/landing-approved-mockup.png");
+    background-size:auto 100%;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-color:#05090d;
+  }
+
+  .landing::after{display:none}
+
+  .content{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    padding:0;
+    display:block;
+  }
+
+  /* The approved mobile mockup is the visual source of truth. */
+  .logo,
+  .tagline,
+  .hero-copy,
+  .bottom{
+    display:none;
+  }
+
+
+  /* The real anchor covers the same geometry as the baked-in approved button. */
+  .content > .hero-copy + .bottom + *{display:none}
+
+  .site-footer{
+    height:74px;
+    gap:7px 11px;
+    font-size:8px;
+    padding:9px 10px;
+  }
+
+  /* Keep the real CTA link interactive without altering the approved artwork. */
+  .mobile-cta-hit{
+    display:block;
+    position:absolute;
+    left:50%;
+    top:52.7%;
+    width:43%;
+    height:5.9%;
+    transform:translate(-50%,-50%);
+    border-radius:999px;
+    z-index:10;
+    cursor:pointer;
+  }
 }
 
 @media (max-height:700px) and (orientation:landscape){
@@ -93,6 +153,7 @@ h1 .gold{color:var(--gold)}
         <a class="cta" href="quiz.html" aria-label="Let's begin the MagaCircle™ quiz"><span>LET’S BEGIN</span><span aria-hidden="true">→</span></a>
       </div>
       <div class="bottom" aria-hidden="true"><div class="ring"></div><div class="bottom-text">The first circle is forming.</div></div>
+      <a class="mobile-cta-hit" href="quiz.html" aria-label="Let’s begin the MagaCircle™ quiz"></a>
     </div>
   </section>
   <nav class="site-footer" aria-label="Site navigation">
