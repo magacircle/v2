@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MagaCircle™</title>
-  <meta name="description" content="The First Circle is Forming. Join MagaCircle™ today.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/MagaCircle_logo_transparent.png">
 
   <style>
     /* ==========================================================================
-       1. GLOBAL RESET & BASE STYLES
+       1. GLOBAL RESET
        ========================================================================== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -22,218 +21,189 @@
     html, body {
       width: 100%;
       min-height: 100%;
-      min-height: 100dvh;
-      background-color: #080e1b; /* Seamless deep navy matching the artwork sky */
+      background-color: #060a14;
       color: #ffffff;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       overflow-x: hidden;
-      overflow-y: auto;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Outer stage that guarantees dead-center alignment on all screens */
-    .viewport-container {
-      min-height: 100vh;
-      min-height: 100dvh;
+    /* Outer wrapper ensuring dead-center alignment on all screen sizes */
+    .page-wrapper {
       width: 100%;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
-      padding: env(safe-area-inset-top, 10px) env(safe-area-inset-right, 10px) env(safe-area-inset-bottom, 12px) env(safe-area-inset-left, 10px);
+      justify-content: flex-start;
+      margin: 0 auto;
     }
 
     /* ==========================================================================
-       2. HERO ARTWORK CONTAINER
+       2. MOBILE / PORTRAIT LAYOUT (Phones & Vertical Tablets)
+       Fills phone screen width naturally, centered, scrolls smoothly to footer.
        ========================================================================== */
-    .hero-wrapper {
+    .hero-container {
       position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: 100%;
-      flex: 1 1 auto;
+      max-width: 480px; /* Standard phone width limit; perfectly centered */
       margin: 0 auto;
+      line-height: 0;
     }
 
-    .hero-stage {
-      position: relative;
-      display: inline-block;
-      max-width: 100%;
-      line-height: 0; /* Prevents inline gap underneath image */
-    }
-
-    /* Image sizing: perfectly contained, never cropped, never distorted */
-    .hero-image {
+    .hero-link {
       display: block;
-      width: auto;
+      position: relative;
+      width: 100%;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Mobile image: fits 100% of phone width, natural height, zero dead margins */
+    .hero-img {
+      display: block;
+      width: 100%;
       height: auto;
-      max-width: 96vw;
-      max-height: 86dvh;
-      object-fit: contain;
       margin: 0 auto;
-      border-radius: 4px;
       user-select: none;
       -webkit-user-drag: none;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
     }
 
-    /* ==========================================================================
-       3. INTERACTIVE CTA HOTSPOT & OVERLAYS
-       ========================================================================== */
-    /* Mobile / Portrait CTA hotspot coordinates */
+    /* Mobile CTA hotspot directly over the 'JOIN THE CIRCLE' button area */
     .cta-hotspot {
       position: absolute;
       top: 67%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 74%;
-      height: 7.5%;
+      width: 76%;
+      height: 7%;
       border-radius: 50px;
-      display: block;
       z-index: 10;
-      text-decoration: none;
+      cursor: pointer;
       background: transparent;
-      cursor: pointer;
       outline: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .cta-hotspot:hover,
-    .cta-hotspot:focus-visible {
-      transform: translate(-50%, -50%) scale(1.02);
-      box-shadow: 0 0 25px rgba(230, 57, 70, 0.65);
-    }
-
-    /* Entire artwork is also clickable directly to the quiz */
-    .artwork-link {
-      display: inline-block;
-      text-decoration: none;
-      position: relative;
-      cursor: pointer;
     }
 
     /* ==========================================================================
-       4. FOOTER & LEGAL LINKS
+       3. DESKTOP / LAPTOP LANDSCAPE LAYOUT (min-width: 769px & landscape)
+       True widescreen landscape with panoramic scenery extending edge-to-edge.
+       No phone card, no boxy edges, seamless blending.
+       ========================================================================== */
+    @media (min-width: 769px) and (orientation: landscape) {
+      .page-wrapper {
+        justify-content: space-between;
+        /* Panoramic scenery spans the entire widescreen monitor */
+        background: url('assets/landing-scenery.png') center top / cover no-repeat;
+        background-color: #060a14;
+      }
+
+      .hero-container {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 10px;
+      }
+
+      .hero-link {
+        width: auto;
+        display: inline-block;
+      }
+
+      .hero-img {
+        width: auto;
+        max-width: 90vw;
+        max-height: 84vh; /* Leaves bottom circle and tagline safe and visible */
+        object-fit: contain;
+        /* Soft horizontal mask so portrait edges blend invisibly into the scenery */
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      }
+
+      .cta-hotspot {
+        top: 67%;
+        width: 65%;
+        height: 7%;
+      }
+    }
+
+    /* ==========================================================================
+       4. FOOTER (Exact links restored, clean copyright, no unsolicited text)
        ========================================================================== */
     .site-footer {
       width: 100%;
       text-align: center;
-      padding: 12px 16px 8px;
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.6);
-      letter-spacing: 0.05em;
-      flex-shrink: 0;
+      padding: 24px 16px 28px;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.04em;
       z-index: 20;
     }
 
-    .site-footer a {
-      color: rgba(255, 255, 255, 0.75);
-      text-decoration: none;
-      margin: 0 10px;
-      transition: color 0.2s ease;
+    .footer-links {
+      margin-bottom: 8px;
     }
 
-    .site-footer a:hover {
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover {
       color: #ffffff;
       text-decoration: underline;
     }
 
-    .site-footer .divider {
-      color: rgba(255, 255, 255, 0.3);
+    .footer-links .sep {
+      color: rgba(255, 255, 255, 0.35);
+      user-select: none;
     }
 
-    /* ==========================================================================
-       5. RESPONSIVE BREAKPOINTS (TABLETS & DESKTOP LANDSCAPE)
-       ========================================================================== */
-
-    /* For laptops, desktop monitors & landscape tablets */
-    @media (orientation: landscape) and (min-width: 768px) {
-      .viewport-container {
-        padding: 12px 24px;
-        justify-content: center;
-      }
-
-      .hero-image {
-        max-width: 95vw;
-        max-height: 85dvh;
-      }
-
-      /* Re-calibrated hotspot for the 16:9 desktop landscape asset */
-      .cta-hotspot {
-        top: 66.5%;
-        left: 50%;
-        width: 28%;
-        height: 8%;
-      }
-    }
-
-    /* Very short vertical screens (e.g. laptop with URL bar/dev tools open) */
-    @media (max-height: 650px) and (orientation: landscape) {
-      .hero-image {
-        max-height: 80dvh;
-      }
-      .site-footer {
-        padding: 4px 16px;
-        font-size: 0.7rem;
-      }
+    .copyright {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.76rem;
     }
   </style>
 </head>
 <body>
 
-  <main class="viewport-container">
-    <div class="hero-wrapper">
-      <div class="hero-stage">
-        <!-- Whole hero links to quiz.html for effortless tapping/clicking -->
-        <a href="quiz.html" class="artwork-link" aria-label="Join MagaCircle - The First Circle is Forming">
-          <picture>
-            <!-- 1. Landscape Laptops & Desktops: loads dedicated landscape composition -->
-            <source 
-              media="(orientation: landscape) and (min-width: 768px)" 
-              srcset="assets/landing-desktop-landscape.png">
-            
-            <!-- Fallback for other wide ratios if desktop-landscape is not available -->
-            <source 
-              media="(orientation: landscape) and (min-width: 768px)" 
-              srcset="assets/landing-landscape.png">
+  <div class="page-wrapper">
+    <main class="hero-container">
+      <a href="quiz.html" class="hero-link" aria-label="Join MagaCircle">
+        <picture>
+          <!-- Mobile / Portrait artwork -->
+          <source media="(max-width: 768px)" srcset="assets/landing-hero.png">
+          <source media="(orientation: portrait)" srcset="assets/landing-hero.png">
 
-            <!-- 2. Mobile phones & Portrait tablets: loads original approved portrait design -->
-            <source 
-              media="(orientation: portrait)" 
-              srcset="assets/landing-hero.png">
+          <!-- Desktop Fallback Image -->
+          <img 
+            src="assets/landing-hero.png" 
+            alt="MagaCircle™" 
+            class="hero-img"
+            loading="eager"
+            onerror="this.onerror=null; this.src='assets/landing-approved-mockup.png';">
+        </picture>
 
-            <!-- Default Image Fallback -->
-            <img 
-              src="assets/landing-hero.png" 
-              alt="MagaCircle™ - The First Circle is Forming" 
-              class="hero-image"
-              loading="eager"
-              onerror="this.onerror=null; this.src='assets/landing-approved-mockup.png';">
-          </picture>
+        <!-- Tap target over the CTA button -->
+        <span class="cta-hotspot" role="button" aria-label="Take the Quiz"></span>
+      </a>
+    </main>
 
-          <!-- Hotspot directly over the 'JOIN THE CIRCLE' button -->
-          <span class="cta-hotspot" role="button" aria-label="Join the Circle"></span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Legal and Safe Area Footer -->
+    <!-- Footer with Quiz link restored and original copyright -->
     <footer class="site-footer">
-      <p>
-        &copy; <span id="current-year"></span> MagaCircle™. All rights reserved.
-        <span class="divider">|</span>
+      <div class="footer-links">
+        <a href="quiz.html">Quiz</a>
+        <span class="sep">&bull;</span>
         <a href="privacy.html">Privacy Policy</a>
-        <span class="divider">|</span>
-        <a href="terms.html">Terms of Service</a>
-      </p>
+        <span class="sep">&bull;</span>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="copyright">&copy; 2025 MagaCircle™</p>
     </footer>
-  </main>
+  </div>
 
-  <script>
-    // Keep copyright year current automatically
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
