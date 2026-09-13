@@ -11,6 +11,10 @@ This package is a static test environment for the approved MagaCircle™ prelaun
 - `404.html` — test redirect for referral-style paths
 - `.nojekyll` — prevents GitHub Pages from applying Jekyll processing
 
+## Responsive landing-page rebuild
+
+The landing page now uses the approved `landing-approved-mockup.png` as the single visual source of truth. The artwork fills the viewport by height on portrait devices, eliminating the previous top/bottom dead space and preventing the composition from resizing while scrolling. Landscape devices use a dedicated 16:9 scenic extension with the exact approved portrait artwork centered at native proportions. The CTA remains an accessible HTML link positioned over the approved button.
+
 ## Flow to test
 
 `Landing → LET’S BEGIN → Name/Email → 10-question Builder Quiz → Builder Profile + Builder Score™ + 9:16 Builder Card → Founders Gate → 5-referral simulation → Ambassador state → Confirmation`

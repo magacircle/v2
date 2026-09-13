@@ -7,159 +7,176 @@
 <title>MagaCircle™ — Building the Parallel Economy</title>
 <meta name="description" content="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™">
 <style>
-:root{color-scheme:dark;--gold:#f6cd7b;--bg:#050709}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;min-height:100%;background:var(--bg)}
-body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
-
-.landing{
-  position:relative;
-  width:100%;
-  height:100dvh;
-  min-height:320px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  isolation:isolate;
-  background:var(--bg);
+:root {
+  color-scheme: dark;
+  --gold: #f6cd7b;
+  --bg: #050709;
 }
 
-.landing::before{
-  content:"";
-  position:absolute;
-  inset:-48px;
-  z-index:-2;
-  background:
-    linear-gradient(rgba(5,7,9,.46),rgba(5,7,9,.46)),
-    url("assets/landing-approved-mockup.jpg") center / cover no-repeat;
-  filter:blur(24px);
-  transform:scale(1.07);
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; background: var(--bg); }
+body {
+  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.landing::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  background:radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.34) 100%);
+/*
+  The approved 1024×1536 artwork is the source of truth.
+  The page never rebuilds its typography in CSS, so the approved proportions
+  remain intact at every breakpoint.
+*/
+.landing {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--bg);
+  display: grid;
+  place-items: center;
 }
 
-/* Portrait/mobile: the approved 2:3 artwork is always shown at its native ratio,
-   centered in the viewport with no stretching or horizontal drift. */
-.mockup{
-  position:relative;
-  width:min(100vw, 66.6667dvh);
-  height:auto;
-  max-height:100dvh;
-  max-width:100vw;
-  aspect-ratio:2 / 3;
-  flex:0 0 auto;
-  line-height:0;
-  overflow:visible;
-  box-shadow:0 24px 80px rgba(0,0,0,.42);
+/* Desktop/tablet landscape backdrop. The foreground portrait is composited
+   into this asset from the exact approved mockup, not stretched. */
+.landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: url("assets/landing-responsive-landscape.png") center / cover no-repeat;
 }
 
- .mockup picture{display:block;width:100%;height:100%}
-.mockup img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  user-select:none;
-  -webkit-user-drag:none;
-  pointer-events:none;
+.landing::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 42%, rgba(0,0,0,.22) 100%);
 }
 
-.begin-link{
-  position:absolute;
-  z-index:5;
-  left:27.6%;
-  top:49.35%;
-  width:44.8%;
-  height:6.35%;
-  display:block;
-  border:0;
-  border-radius:999px;
-  background:transparent;
-  cursor:pointer;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-  text-decoration:none;
-  outline:none;
-}
-.begin-link:focus-visible{outline:3px solid rgba(246,205,123,.98);outline-offset:6px}
-.begin-link:active{background:rgba(246,205,123,.08)}
-
-@media (max-height:560px) and (orientation:portrait){
-  .mockup{width:min(100vw,66.6667dvh);height:auto;max-width:100vw;max-height:100dvh}
+.mockup {
+  position: relative;
+  width: auto;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: 2 / 3;
+  flex: 0 0 auto;
+  line-height: 0;
+  z-index: 1;
+  box-shadow: 0 24px 80px rgba(0,0,0,.28);
 }
 
-/* True landscape experience for tablets, laptops and desktops.
-   The desktop artwork is already 16:9, so it fills the viewport directly:
-   no CSS stretching/cropping of the portrait artwork. */
-@media (orientation:landscape) and (min-width:768px){
-  .landing{
-    height:100dvh;
-    min-height:320px;
-    display:block;
-    background:#050709;
-  }
-  .landing::before{
+.mockup picture,
+.mockup img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mockup img {
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.begin-link {
+  position: absolute;
+  z-index: 5;
+  left: 27.6%;
+  top: 49.35%;
+  width: 44.8%;
+  height: 6.35%;
+  display: block;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  outline: none;
+}
+
+.begin-link:focus-visible {
+  outline: 3px solid rgba(246,205,123,.98);
+  outline-offset: 6px;
+}
+
+.begin-link:active {
+  background: rgba(246,205,123,.08);
+}
+
+/*
+  Portrait devices: the approved artwork fills the viewport by HEIGHT.
+  This is the key fix for the old dead-space problem: the artwork is never
+  width-fitted into a taller phone viewport. Its sides may crop, while the
+  approved vertical composition remains exactly the same from top to bottom.
+*/
+@media (orientation: portrait) {
+  .landing::before {
     background:
-      linear-gradient(rgba(5,7,9,.20),rgba(5,7,9,.20)),
-      url("assets/landing-desktop-landscape.png") center / cover no-repeat;
-    filter:blur(18px);
+      linear-gradient(rgba(5,7,9,.48), rgba(5,7,9,.48)),
+      url("assets/landing-approved-mockup.jpg") center / cover no-repeat;
+    filter: blur(22px);
+    transform: scale(1.06);
   }
-  .landing::after{
-    background:radial-gradient(circle at center,transparent 38%,rgba(0,0,0,.26) 100%);
-  }
-  .mockup{
-    width:100%;
-    height:100%;
-    max-width:none;
-    max-height:none;
-    aspect-ratio:16 / 9;
-    box-shadow:none;
-  }
-  .mockup img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-  }
-  .begin-link{
-    left:41.6%;
-    top:49.35%;
-    width:16.8%;
-    height:6.35%;
+
+  .mockup {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 2 / 3;
+    box-shadow: none;
   }
 }
 
-@media (max-width:600px){
-  .mockup{box-shadow:none}
+/* Very narrow landscape phones: use the responsive landscape composition
+   rather than shrinking the portrait into a tiny column. */
+@media (orientation: landscape) and (max-width: 767px) {
+  .landing::before {
+    background:
+      linear-gradient(rgba(5,7,9,.16), rgba(5,7,9,.16)),
+      url("assets/landing-responsive-landscape.png") center / cover no-repeat;
+  }
+
+  .mockup {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 2 / 3;
+    box-shadow: none;
+  }
 }
 
-.site-footer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:14px;
-  flex-wrap:wrap;
-  min-height:42px;
-  padding:10px 14px;
-  background:#050709;
-  color:#77736a;
-  font-size:10px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  text-align:center;
+.site-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  min-height: 42px;
+  padding: 10px 14px;
+  background: #050709;
+  color: #77736a;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
 }
-.site-footer .copyright{color:#77736a}
-.site-footer a{color:#8f8c83;text-decoration:none}
-.site-footer a:hover{color:#d7bd7e}
 
-@media (prefers-reduced-motion:reduce){.begin-link{transition:none}}
+.site-footer .copyright { color: #77736a; }
+.site-footer a { color: #8f8c83; text-decoration: none; }
+.site-footer a:hover { color: #d7bd7e; }
+
+@media (max-width: 420px) {
+  .site-footer { gap: 9px; font-size: 9px; padding-inline: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .begin-link { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -167,7 +184,6 @@ body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
   <section class="landing">
     <div class="mockup">
       <picture>
-        <source media="(orientation: landscape) and (min-width: 768px)" srcset="assets/landing-desktop-landscape.png">
         <img
           src="assets/landing-approved-mockup.png"
           width="1024"
