@@ -1,301 +1,192 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>MagaCircle™</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050709">
+<title>MagaCircle™ — Building the Parallel Economy</title>
+<meta name="description" content="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™">
+<style>
+:root{color-scheme:dark;--gold:#f6cd7b;--bg:#050709}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;min-height:100%;background:var(--bg)}
+body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/MagaCircle_logo_transparent.png">
+.landing{
+  position:relative;
+  width:100%;
+  height:100dvh;
+  min-height:320px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  isolation:isolate;
+  background:var(--bg);
+}
 
-  <style>
-    /* ==========================================================================
-       1. GLOBAL RESET
-       ========================================================================== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+.landing::before{
+  content:"";
+  position:absolute;
+  inset:-48px;
+  z-index:-2;
+  background:
+    linear-gradient(rgba(5,7,9,.46),rgba(5,7,9,.46)),
+    url("assets/landing-approved-mockup.jpg") center / cover no-repeat;
+  filter:blur(24px);
+  transform:scale(1.07);
+}
 
-    html, body {
-      width: 100%;
-      height: 100%;
-      background-color: #060a14;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+.landing::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.34) 100%);
+}
 
-    /* ==========================================================================
-       2. MOBILE PORTRAIT VIEW (Phones & Vertical Displays < 769px)
-       Locks to 100dvh: Artwork + Footer fit together, ZERO trailing black space.
-       ========================================================================== */
-    @media (max-width: 768px) {
-      body {
-        height: 100dvh;
-        overflow: hidden; /* Prevents scrolling down into empty black space */
-      }
+/* Portrait/mobile: the approved 2:3 artwork is always shown at its native ratio,
+   centered in the viewport with no stretching or horizontal drift. */
+.mockup{
+  position:relative;
+  width:min(100vw, 66.6667dvh);
+  height:auto;
+  max-height:100dvh;
+  max-width:100vw;
+  aspect-ratio:2 / 3;
+  flex:0 0 auto;
+  line-height:0;
+  overflow:visible;
+  box-shadow:0 24px 80px rgba(0,0,0,.42);
+}
 
-      .desktop-container {
-        display: none !important;
-      }
+ .mockup picture{display:block;width:100%;height:100%}
+.mockup img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  user-select:none;
+  -webkit-user-drag:none;
+  pointer-events:none;
+}
 
-      .mobile-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 100dvh;
-        max-width: 480px;
-        margin: 0 auto;
-        overflow: hidden;
-        padding-top: env(safe-area-inset-top, 0);
-      }
+.begin-link{
+  position:absolute;
+  z-index:5;
+  left:27.6%;
+  top:49.35%;
+  width:44.8%;
+  height:6.35%;
+  display:block;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  text-decoration:none;
+  outline:none;
+}
+.begin-link:focus-visible{outline:3px solid rgba(246,205,123,.98);outline-offset:6px}
+.begin-link:active{background:rgba(246,205,123,.08)}
 
-      .mobile-art-wrapper {
-        position: relative;
-        flex: 1 1 auto;
-        min-height: 0;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 0;
-      }
+@media (max-height:560px) and (orientation:portrait){
+  .mockup{width:min(100vw,66.6667dvh);height:auto;max-width:100vw;max-height:100dvh}
+}
 
-      .mobile-art-link {
-        position: relative;
-        display: inline-block;
-        max-height: 100%;
-        max-width: 100%;
-        line-height: 0;
-      }
+/* True landscape experience for tablets, laptops and desktops.
+   The desktop artwork is already 16:9, so it fills the viewport directly:
+   no CSS stretching/cropping of the portrait artwork. */
+@media (orientation:landscape) and (min-width:768px){
+  .landing{
+    height:100dvh;
+    min-height:320px;
+    display:block;
+    background:#050709;
+  }
+  .landing::before{
+    background:
+      linear-gradient(rgba(5,7,9,.20),rgba(5,7,9,.20)),
+      url("assets/landing-desktop-landscape.png") center / cover no-repeat;
+    filter:blur(18px);
+  }
+  .landing::after{
+    background:radial-gradient(circle at center,transparent 38%,rgba(0,0,0,.26) 100%);
+  }
+  .mockup{
+    width:100%;
+    height:100%;
+    max-width:none;
+    max-height:none;
+    aspect-ratio:16 / 9;
+    box-shadow:none;
+  }
+  .mockup img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+  .begin-link{
+    left:41.6%;
+    top:49.35%;
+    width:16.8%;
+    height:6.35%;
+  }
+}
 
-      .mobile-art-img {
-        display: block;
-        width: auto;
-        height: auto;
-        max-width: 100vw;
-        max-height: calc(100dvh - 54px);
-        object-fit: contain;
-        margin: 0 auto;
-        user-select: none;
-        -webkit-user-drag: none;
-      }
+@media (max-width:600px){
+  .mockup{box-shadow:none}
+}
 
-      /* Exact hotspot position over "LET'S BEGIN →" in the approved artwork */
-      .mobile-cta-hotspot {
-        position: absolute;
-        top: 52.4%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 44%;
-        height: 5.6%;
-        border-radius: 50px;
-        z-index: 10;
-        background: transparent;
-        cursor: pointer;
-      }
+.site-footer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  min-height:42px;
+  padding:10px 14px;
+  background:#050709;
+  color:#77736a;
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-align:center;
+}
+.site-footer .copyright{color:#77736a}
+.site-footer a{color:#8f8c83;text-decoration:none}
+.site-footer a:hover{color:#d7bd7e}
 
-      .mobile-footer {
-        flex: 0 0 auto;
-        width: 100%;
-        text-align: center;
-        padding: 6px 16px max(10px, env(safe-area-inset-bottom, 10px));
-        font-size: 0.78rem;
-        color: rgba(255, 255, 255, 0.75);
-      }
-    }
+@media (prefers-reduced-motion:reduce){.begin-link{transition:none}}
+</style>
+</head>
+<body>
+<main aria-label="MagaCircle™ landing page">
+  <section class="landing">
+    <div class="mockup">
+      <picture>
+        <source media="(orientation: landscape) and (min-width: 768px)" srcset="assets/landing-desktop-landscape.png">
+        <img
+          src="assets/landing-approved-mockup.png"
+          width="1024"
+          height="1536"
+          alt="MagaCircle™ — Building the Parallel Economy. What would you do with $50K? Take the quiz to see if you qualify for MagaCircle™"
+          draggable="false"
+        >
+      </picture>
+      <a class="begin-link" href="quiz.html" aria-label="Let's begin the MagaCircle™ quiz" title="Let's begin"></a>
+    </div>
+  </section>
 
-    /* Small phone landscape / short screen fallback */
-    @media (max-width: 768px) and (max-height: 560px) {
-      body, .mobile-container {
-        height: auto;
-        overflow-y: auto;
-      }
-    }
-
-    /* ==========================================================================
-       3. DESKTOP / LAPTOP LANDSCAPE VIEW (Widescreen >= 769px)
-       True horizontal landscape layout across 16:9 widescreen canvas.
-       ========================================================================== */
-    @media (min-width: 769px) {
-      body {
-        height: 100vh;
-        height: 100dvh;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background: #060a14 url('assets/landing-scenery.png') no-repeat center center / cover;
-      }
-
-      .mobile-container {
-        display: none !important;
-      }
-
-      .desktop-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 100%;
-        height: 100%;
-        min-height: 100dvh;
-        /* Ambient dark vignette so typography and people visual stand out cleanly */
-        background: radial-gradient(circle at 70% 50%, rgba(6, 10, 20, 0.3) 0%, rgba(6, 10, 20, 0.88) 100%);
-        padding: 24px 60px 16px;
-      }
-
-      .desktop-main-grid {
-        flex: 1 1 auto;
-        min-height: 0;
-        display: grid;
-        grid-template-columns: 1.15fr 0.95fr;
-        align-items: center;
-        gap: 48px;
-        max-width: 1400px;
-        width: 100%;
-        margin: 0 auto;
-      }
-
-      /* Left Column: Brand, Headline, Subtitle, and CTA Button */
-      .desktop-copy-col {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-      }
-
-      .desktop-brand {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 24px;
-      }
-
-      .desktop-logo-img {
-        height: 52px;
-        width: auto;
-        object-fit: contain;
-        margin-bottom: 8px;
-      }
-
-      .desktop-tagline {
-        font-size: 0.85rem;
-        font-weight: 600;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.8);
-      }
-
-      .desktop-headline {
-        font-size: clamp(2.4rem, 3.8vw, 3.9rem);
-        font-weight: 800;
-        line-height: 1.12;
-        letter-spacing: -0.02em;
-        color: #ffffff;
-        margin-bottom: 16px;
-      }
-
-      .gold-text {
-        color: #e5c07b;
-        background: linear-gradient(135deg, #f7d794 0%, #d4af37 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .desktop-subhead {
-        font-size: clamp(1.05rem, 1.3vw, 1.25rem);
-        line-height: 1.5;
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 32px;
-        max-width: 520px;
-      }
-
-      /* Desktop CTA button matching the exact approved mobile pill */
-      .desktop-cta-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        background-color: #000000;
-        color: #e5c07b;
-        border: 2px solid #c89d55;
-        padding: 16px 44px;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        text-decoration: none;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 16px rgba(200, 157, 85, 0.35);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-      }
-
-      .desktop-cta-btn:hover {
-        transform: translateY(-2px) scale(1.02);
-        border-color: #f7d794;
-        box-shadow: 0 6px 28px rgba(0, 0, 0, 0.7), 0 0 28px rgba(212, 175, 55, 0.65);
-      }
-
-      /* Right Column: Visual Stage with Summit Patriots and Circle */
-      .desktop-visual-col {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-      }
-
-      .desktop-hero-art {
-        max-height: calc(100dvh - 120px);
-        width: auto;
-        max-width: 100%;
-        object-fit: contain;
-        border-radius: 16px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(212, 175, 55, 0.2);
-        user-select: none;
-        -webkit-user-drag: none;
-      }
-
-      .desktop-footer {
-        width: 100%;
-        text-align: center;
-        padding: 10px 16px 14px;
-        font-size: 0.8rem;
-        color: rgba(255, 255, 255, 0.75);
-      }
-    }
-
-    /* ==========================================================================
-       4. SHARED FOOTER STYLES
-       ========================================================================== */
-    .footer-links {
-      margin-bottom: 4px;
-    }
-
-    .footer-links a {
-      color: rgba(255, 255, 255, 0.85);
-      text-decoration: none;
-      margin: 0 10px;
-      transition: color 0.15s ease;
-    }
-
-    .footer-links a:hover {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-
-    .footer-links .sep {
-      color: rgba(255, 255, 255, 0.35);
-      user-select: none;
-    }
-
-    .copyright {
-      color: rgba(255, 255, 255, 0.55);
-      font-s
+  <nav class="site-footer" aria-label="Site navigation">
+    <span class="copyright">Copyright © 2026 MagaCircle™</span><span class="sep">•</span>
+    <a href="index.html">Home</a><span class="sep">•</span>
+    <a href="quiz.html">Quiz</a><span class="sep">•</span>
+    <a href="privacy.html">Privacy</a><span class="sep">•</span>
+    <a href="terms.html">Terms</a>
+  </nav>
+</main>
+</body>
+</html>
