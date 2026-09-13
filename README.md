@@ -33,3 +33,11 @@ This is only a testing bridge. Production referral tracking should be connected 
 ## Important prototype limitation
 
 Email capture and referral counting are not connected to a production email platform or GrowSurf in this static package. The existing quiz prototype intentionally retains its localStorage-based recovery/testing behavior.
+
+
+## Legal pages
+
+- Privacy Policy: `privacy.html`
+- Terms & Conditions: `terms.html`
+
+Replace the bracketed contact/business placeholders in the legal pages before public launch.
