@@ -76,8 +76,8 @@ h1 .gold{color:var(--gold)}
    * the visual remains pixel-faithful while the button stays accessible/clickable.
    */
   .landing{
-    height:calc(100svh - 74px);
-    min-height:0;
+    height:100dvh;
+    min-height:100dvh;
     overflow:hidden;
     background:#05090d;
   }
@@ -109,10 +109,7 @@ h1 .gold{color:var(--gold)}
     display:none;
   }
 
-
   /* The real anchor covers the same geometry as the baked-in approved button. */
-  .content > .hero-copy + .bottom + *{display:none}
-
   .site-footer{
     height:74px;
     gap:7px 11px;
@@ -132,6 +129,7 @@ h1 .gold{color:var(--gold)}
     border-radius:999px;
     z-index:10;
     cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
   }
 }
 
