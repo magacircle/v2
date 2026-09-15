@@ -39,86 +39,110 @@ h1 .gold{color:var(--gold)}
 .site-footer{height:44px;display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 14px;background:#050709;color:#77736a;font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-align:center}
 .site-footer a{color:#8f8c83;text-decoration:none}.site-footer a:hover{color:#d7bd7e}
 
-/* Hidden helper for the phone-landscape fallback. The approved portrait artwork
-   remains a single, undistorted image in this mode so the entire composition
-   stays visible instead of being cropped by a short landscape viewport. */
-.mobile-landscape-art{display:none;position:absolute;left:50%;top:0;height:100%;width:auto;max-width:none;transform:translateX(-50%);z-index:0;pointer-events:none;user-select:none;-webkit-user-drag:none}
-
-/* LANDSCAPE DESKTOP / TABLET
-   Laptops and desktops use the true wide composition. The portrait mockup is
-   never used at these widths, so a laptop can never become a narrow portrait strip. */
-@media (orientation:landscape) and (min-width:768px){
-  .landing{height:calc(100vh - 44px);min-height:0;overflow:hidden}
-  .landing::before{background-image:url("assets/landing-background.png");background-size:cover;background-position:center bottom}
-  .landing::after{background:linear-gradient(to bottom,rgba(2,7,11,.91) 0%,rgba(2,7,11,.72) 44%,rgba(2,7,11,.20) 72%,rgba(2,7,11,.04) 100%)}
-  .content{height:100%;padding:1.2vh 20px 1.2vh;justify-content:flex-start}
-  .logo{width:min(600px,54vh);max-width:none;flex:0 0 auto}
-  .tagline{margin-top:min(1.1vh,12px);font-size:min(23px,2.5vh);letter-spacing:.42em;flex:0 0 auto}
-  .hero-copy{margin-top:min(2.8vh,30px);width:min(100%,1050px);flex:0 0 auto}
-  h1{font-size:min(78px,9vh);line-height:1.02}
-  .subcopy{margin-top:min(1.8vh,20px);font-size:min(27px,4.5vh);line-height:1.22}
-  .cta{margin-top:min(2vh,22px);min-height:min(68px,10vh);width:min(430px,52vw);font-size:min(25px,3.2vh);gap:min(28px,3vh)}
-  .bottom{bottom:min(1.2vh,13px);gap:min(.8vh,8px)}
-  .ring{width:min(42px,6vh);height:min(42px,6vh);border-width:min(3px,.45vh)}
-  .bottom-text{font-size:min(14px,1.7vh)}
-  .mobile-cta-hit{display:none}
+/* ONE SHARED LANDSCAPE SYSTEM — phone, tablet, laptop and desktop.
+   Portrait mobile is isolated below and remains the approved V5 artwork. */
+@media (orientation:landscape){
+  .landing{
+    height:calc(100svh - 44px);
+    min-height:0;
+    overflow:hidden;
+    background:#05090d;
+  }
+  .landing::before{
+    background-image:url("assets/landing-background.png");
+    background-size:cover;
+    background-position:center bottom;
+    background-repeat:no-repeat;
+  }
+  .landing::after{
+    background:linear-gradient(to bottom,rgba(2,7,11,.90) 0%,rgba(2,7,11,.68) 44%,rgba(2,7,11,.18) 74%,rgba(2,7,11,.05) 100%);
+  }
+  .content{
+    height:100%;
+    padding:clamp(6px,1.5vh,18px) 16px clamp(8px,1.5vh,18px);
+    justify-content:flex-start;
+  }
+  .logo{
+    width:min(34vw,52vh,500px);
+    max-width:80vw;
+    flex:0 0 auto;
+  }
+  .tagline{
+    margin-top:clamp(5px,1.4vh,14px);
+    font-size:clamp(10px,2.35vh,23px);
+    letter-spacing:.42em;
+    flex:0 0 auto;
+  }
+  .hero-copy{
+    margin-top:clamp(10px,3.1vh,34px);
+    width:min(100%,1050px);
+    flex:0 0 auto;
+  }
+  h1{
+    font-size:clamp(27px,7.8vh,78px);
+    line-height:1.01;
+  }
+  .subcopy{
+    margin-top:clamp(8px,2.0vh,20px);
+    font-size:clamp(12px,3.5vh,27px);
+    line-height:1.18;
+  }
+  .cta{
+    margin-top:clamp(8px,2.0vh,22px);
+    width:min(430px,48vw);
+    min-height:clamp(42px,7.8vh,68px);
+    padding:0 24px;
+    font-size:clamp(13px,3.0vh,25px);
+    gap:clamp(14px,2.5vh,28px);
+  }
+  .bottom{
+    bottom:clamp(7px,1.4vh,14px);
+    gap:clamp(4px,.8vh,8px);
+  }
+  .ring{
+    width:clamp(25px,5vh,42px);
+    height:clamp(25px,5vh,42px);
+    border-width:clamp(2px,.38vh,3px);
+  }
+  .bottom-text{font-size:clamp(7px,1.65vh,14px)}
+  .mobile-cta-hit{display:none!important}
 }
 
-/* LANDSCAPE PHONE
-   This is deliberately NOT the desktop layout. A phone in landscape is still
-   showing the approved portrait composition in full. It is fitted by HEIGHT,
-   never stretched and never cropped. The scenery fills the unused side areas.
-   This is the only mathematically lossless way to show every pixel of the
-   approved 2:3 design inside a short landscape phone viewport. */
-@media (max-width:767px) and (orientation:landscape){
-  .landing{height:calc(100vh - 44px);min-height:0;overflow:hidden;background:#05090d}
-  .landing::before{background-image:url("assets/landing-background-mobile.png");background-size:cover;background-position:center center;filter:none}
-  .landing::after{background:rgba(2,7,11,.34)}
-  .content{position:absolute;inset:0;width:100%;height:100%;padding:0;display:block}
-  .mobile-landscape-art{display:block}
-  .logo,.tagline,.hero-copy,.bottom{display:none}
-  .mobile-cta-hit{display:block;position:absolute;left:50%;top:52.7%;width:min(43%,260px);height:5.9%;transform:translate(-50%,-50%);border-radius:999px;z-index:10;cursor:pointer;-webkit-tap-highlight-color:transparent}
-  .site-footer{height:44px;font-size:8px;gap:7px 11px;padding:7px 10px}
+/* Short landscape phones and small tablets use the dedicated wide scenic
+   background, while retaining the exact same foreground layout. */
+@media (orientation:landscape) and (max-width:767px){
+  .landing::before{
+    background-image:url("assets/landing-background-mobile.png");
+    background-position:center center;
+  }
+  .content{padding-left:10px;padding-right:10px}
+  .logo{width:min(32vw,20vh,240px)}
+  .tagline{font-size:clamp(8px,2.15vh,15px);letter-spacing:.34em}
+  .hero-copy{margin-top:clamp(8px,2.3vh,18px)}
+  h1{font-size:clamp(24px,6.9vh,48px)}
+  .subcopy{font-size:clamp(11px,3.0vh,18px);margin-top:clamp(6px,1.5vh,12px)}
+  .cta{width:min(310px,42vw);min-height:clamp(38px,7vh,52px);font-size:clamp(11px,2.5vh,17px);border-width:2px}
+  .bottom{bottom:clamp(5px,1vh,9px)}
+  .bottom-text{font-size:clamp(6px,1.35vh,10px);letter-spacing:.25em}
 }
 
-/* Extra-wide desktop caps */
+/* Extra-wide desktop caps. */
 @media (min-width:1600px) and (orientation:landscape){
-  .logo{width:min(600px,54vh)}
+  .logo{width:min(500px,52vh)}
   .hero-copy{max-width:1050px}
   h1{font-size:min(78px,9vh)}
   .subcopy{font-size:min(27px,4.5vh)}
   .tagline{font-size:min(23px,2.5vh)}
 }
 
-/* Phones: use the approved portrait scenery and center every content block
-   against the actual viewport. No fixed-width inner column and no transform. */
+/* MOBILE PORTRAIT — V5 APPROVED BASELINE. Do not alter. */
 @media (max-width:600px) and (orientation:portrait){
-  /*
-   * MOBILE IS LOCKED TO THE APPROVED 1024x1536 COMPOSITION.
-   *
-   * The approved mockup is deliberately used as one complete visual on phones.
-   * It is scaled by HEIGHT and centered on the viewport. Because the source and
-   * viewport have different aspect ratios, only the left/right edges crop;
-   * the approved vertical composition never gets stretched, offset, or rebuilt
-   * with independent text positioning.
-   *
-   * The original artwork already contains the logo, tagline, headline, subcopy,
-   * CTA, ring and bottom line. The DOM copy is hidden here to prevent duplicate
-   * text. A transparent real link is placed exactly over the approved CTA so
-   * the visual remains pixel-faithful while the button stays accessible/clickable.
-   */
   .landing{
-    /* Keep the artwork at one stable mobile height. Using dvh here makes
-       Android Chrome rescale the entire approved image as browser chrome
-       expands/collapses during scroll, which makes the baked-in copy appear
-       to grow and shrink. svh is intentionally stable; the footer below the
-       hero provides the page scroll instead. */
     height:100svh;
     min-height:100svh;
     overflow:hidden;
     background:#05090d;
   }
-
   .landing::before{
     background-image:url("assets/landing-approved-mockup.png");
     background-size:auto 100%;
@@ -126,9 +150,7 @@ h1 .gold{color:var(--gold)}
     background-repeat:no-repeat;
     background-color:#05090d;
   }
-
   .landing::after{display:none}
-
   .content{
     position:absolute;
     inset:0;
@@ -137,24 +159,13 @@ h1 .gold{color:var(--gold)}
     padding:0;
     display:block;
   }
-
-  /* The approved mobile mockup is the visual source of truth. */
-  .logo,
-  .tagline,
-  .hero-copy,
-  .bottom{
-    display:none;
-  }
-
-  /* The real anchor covers the same geometry as the baked-in approved button. */
+  .logo,.tagline,.hero-copy,.bottom{display:none}
   .site-footer{
     height:74px;
     gap:7px 11px;
     font-size:8px;
     padding:9px 10px;
   }
-
-  /* Keep the real CTA link interactive without altering the approved artwork. */
   .mobile-cta-hit{
     display:block;
     position:absolute;
@@ -170,10 +181,6 @@ h1 .gold{color:var(--gold)}
   }
 }
 
-@media (max-height:700px) and (orientation:landscape){
-  .hero-copy{margin-top:18px}.cta{margin-top:12px;min-height:50px}.bottom{display:none}
-}
-
 @media (prefers-reduced-motion:reduce){.cta{transition:none}}
 </style>
 </head>
@@ -181,7 +188,6 @@ h1 .gold{color:var(--gold)}
 <main aria-label="MagaCircle™ landing page">
   <section class="landing">
     <div class="content">
-      <img class="mobile-landscape-art" src="assets/landing-approved-mockup.png" width="1024" height="1536" alt="" aria-hidden="true" draggable="false">
       <img class="logo" src="assets/MagaCircle_logo_transparent.png" width="501" height="198" alt="MagaCircle™">
       <div class="tagline">Building the Parallel Economy</div>
       <div class="hero-copy">
