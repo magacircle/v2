@@ -43,38 +43,21 @@ h1 .gold{color:var(--gold)}
    as the canvas. Content is sized from viewport dimensions, not from a fixed
    portrait bitmap, so laptops do not get a 2:3 center strip. */
 @media (orientation:landscape){
-  /* ONE LANDSCAPE SYSTEM: phones, tablets, laptops and desktops.
-     Every dimension scales from the shorter viewport edge so a short
-     landscape phone keeps the complete hierarchy visible instead of
-     clipping the CTA/footer content. */
-  .landing{height:calc(100vh - 44px);min-height:0}
   .landing::before{background-image:url("assets/landing-background.png");background-size:cover;background-position:center bottom}
   .landing::after{background:linear-gradient(to bottom,rgba(2,7,11,.91) 0%,rgba(2,7,11,.72) 44%,rgba(2,7,11,.20) 72%,rgba(2,7,11,.04) 100%)}
-  .content{padding:clamp(10px,2vh,42px) 20px clamp(10px,2vh,28px);justify-content:flex-start}
-  .logo{width:min(34vw,62vh,500px)}
-  .tagline{margin-top:min(1.8vh,22px);font-size:min(1.45vw,3vh,25px)}
-  .hero-copy{margin-top:min(5vh,62px);width:min(100%,1050px)}
-  h1{font-size:min(5vw,9vh,78px)}
-  .subcopy{margin-top:min(2.2vh,28px);font-size:min(1.65vw,4vh,27px)}
-  .cta{margin-top:min(2.8vh,34px);min-height:min(12vh,60px);width:min(31vw,60vh,430px)}
-  .bottom{bottom:min(2vh,26px);gap:min(1vh,8px)}
-  .ring{width:min(8vh,42px);height:min(8vh,42px);border-width:min(.6vh,3px)}
-  .bottom-text{font-size:min(.85vw,2.2vh,14px)}
+  .content{padding-top:clamp(18px,3.2vh,42px)}
+  .logo{width:min(34vw,500px)}
+  .tagline{margin-top:clamp(10px,1.8vh,22px)}
+  .hero-copy{margin-top:clamp(24px,5vh,62px)}
+  h1{font-size:clamp(40px,5vw,78px)}
+  .subcopy{margin-top:clamp(14px,2.2vh,28px);font-size:clamp(17px,1.65vw,27px)}
+  .cta{margin-top:clamp(16px,2.8vh,34px);min-height:60px;width:min(430px,31vw)}
+  .bottom{bottom:clamp(12px,2vh,26px);gap:8px}.ring{width:42px;height:42px;border-width:3px}.bottom-text{font-size:clamp(9px,.85vw,14px)}
 }
 
 /* Extra-wide desktop: keep the content comfortably readable instead of
    allowing type to grow with the monitor forever. */
 @media (min-width:1600px) and (orientation:landscape){.logo{width:500px}.hero-copy{max-width:1050px}h1{font-size:78px}.subcopy{font-size:27px}.tagline{font-size:23px}}
-
-@media (orientation:landscape){.mobile-cta-hit{display:none}}
-
-/* Small landscape phones use the dedicated landscape-mobile scenery.
-   This source is 1024x480, so it preserves much more of the full five-person
-   composition on short phone screens than the wider desktop background. */
-@media (max-width:900px) and (orientation:landscape){
-  .landing::before{background-image:url("assets/landing-background-mobile.png");background-size:cover;background-position:center center}
-  .bottom{display:none}
-}
 
 /* Phones: use the approved portrait scenery and center every content block
    against the actual viewport. No fixed-width inner column and no transform. */
@@ -156,6 +139,9 @@ h1 .gold{color:var(--gold)}
   }
 }
 
+@media (max-height:700px) and (orientation:landscape){
+  .hero-copy{margin-top:18px}.cta{margin-top:12px;min-height:50px}.bottom{display:none}
+}
 @media (prefers-reduced-motion:reduce){.cta{transition:none}}
 </style>
 </head>
