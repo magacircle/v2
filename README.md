@@ -1,47 +1,22 @@
-# MagaCircle™ — GitHub Pages Test Site
+# MagaCircle™ Landing Page — V12
 
-This package is a static test environment for the approved MagaCircle™ prelaunch flow.
+## Responsive architecture
 
-## Included
+- **Portrait mobile (max-width 600px, portrait):** preserves the approved `assets/landing-approved-mockup.png` composition as the V5 baseline. The portrait branch is isolated from landscape CSS.
+- **All landscape devices:** use one shared HTML/CSS composition over the clean scenic `assets/landing-background.png`. This applies to landscape phones, tablets, laptops, and desktops.
+- The landscape CTA is a real HTML link and is explicitly centered inside the hero copy.
+- The landscape “The First Circle Is Forming” indicator is centered as a single CSS group.
 
-- `index.html` — approved cinematic landing page
-- `quiz.html` — current approved Builder Quiz / Builder Profile / Builder Card / Founders Gate / confirmation experience (V10)
-- `assets/landing-hero.png` — landing-page visual
-- `assets/MagaCircle_logo_transparent.png` — approved logo asset
-- `404.html` — test redirect for referral-style paths
-- `.nojekyll` — prevents GitHub Pages from applying Jekyll processing
+## Asset audit
 
-## Responsive landing-page rebuild
+The repository contains several historical composite artwork files. They are retained for reference but are **not referenced by `index.html`**. In particular, `landing-landscape.png`, `landing-responsive-landscape.png`, and `landing-desktop-landscape.png` contain baked-in foreground/portrait content and should not be used as the live responsive background.
 
-The landing page now uses the approved `landing-approved-mockup.png` as the single visual source of truth. The artwork fills the viewport by height on portrait devices, eliminating the previous top/bottom dead space and preventing the composition from resizing while scrolling. Landscape devices use a dedicated 16:9 scenic extension with the exact approved portrait artwork centered at native proportions. The CTA remains an accessible HTML link positioned over the approved button.
+`landing-background-mobile.png` also contains a baked-in gold circle indicator at the bottom. V11 used that file for small landscape devices, which could conflict visually with the live CSS indicator. V12 removes that reference and uses the clean `landing-background.png` for all landscape devices.
 
-## Flow to test
+## Live landing assets used by index.html
 
-`Landing → LET’S BEGIN → Name/Email → 10-question Builder Quiz → Builder Profile + Builder Score™ + 9:16 Builder Card → Founders Gate → 5-referral simulation → Ambassador state → Confirmation`
+- Portrait: `assets/landing-approved-mockup.png`
+- Landscape scenic background: `assets/landing-background.png`
+- Landscape logo: `assets/MagaCircle_logo_transparent.png`
 
-## GitHub Pages
-
-1. Create a new GitHub repository.
-2. Upload the contents of this folder to the repository root.
-3. In GitHub, open **Settings → Pages**.
-4. Set the source to **Deploy from a branch** and choose the branch containing these files (normally `main`) and the `/ (root)` folder.
-5. Save and wait for GitHub Pages to publish.
-6. Open the published site URL. The landing page is `index.html`; the quiz is `quiz.html`.
-
-## Referral-path testing
-
-The current prototype stores referral progress locally in the browser and includes a test redirect for paths such as `/founders/ABC123`. GitHub Pages will route an unknown path to `404.html`, which redirects to `quiz.html?ref=ABC123`.
-
-This is only a testing bridge. Production referral tracking should be connected to GrowSurf/CRM before launch. The final production URL architecture can then be configured around the approved domain strategy.
-
-## Important prototype limitation
-
-Email capture and referral counting are not connected to a production email platform or GrowSurf in this static package. The existing quiz prototype intentionally retains its localStorage-based recovery/testing behavior.
-
-
-## Legal pages
-
-- Privacy Policy: `privacy.html`
-- Terms & Conditions: `terms.html`
-
-Replace the bracketed contact/business placeholders in the legal pages before public launch.
+No PHP or server-side code is required for this static GitHub Pages implementation.
