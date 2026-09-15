@@ -11,7 +11,7 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0;padding:0;width:100%;min-height:100%;background:var(--ink)}
-body{font-family:Arial,Helvetica,sans-serif;color:#fff;overflow-x:hidden}
+body{font-family:Arial,Helvetica,sans-serif;color:#fff;overflow-x:hidden;overflow-y:auto}
 
 /* The landing page is built from the approved portrait composition, but its
    geometry is CSS-driven. This prevents a portrait bitmap from becoming a
@@ -39,25 +39,56 @@ h1 .gold{color:var(--gold)}
 .site-footer{height:44px;display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 14px;background:#050709;color:#77736a;font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-align:center}
 .site-footer a{color:#8f8c83;text-decoration:none}.site-footer a:hover{color:#d7bd7e}
 
-/* Landscape: preserve the approved hierarchy, but use the wide scenic source
-   as the canvas. Content is sized from viewport dimensions, not from a fixed
-   portrait bitmap, so laptops do not get a 2:3 center strip. */
-@media (orientation:landscape){
+/* Hidden helper for the phone-landscape fallback. The approved portrait artwork
+   remains a single, undistorted image in this mode so the entire composition
+   stays visible instead of being cropped by a short landscape viewport. */
+.mobile-landscape-art{display:none;position:absolute;left:50%;top:0;height:100%;width:auto;max-width:none;transform:translateX(-50%);z-index:0;pointer-events:none;user-select:none;-webkit-user-drag:none}
+
+/* LANDSCAPE DESKTOP / TABLET
+   Laptops and desktops use the true wide composition. The portrait mockup is
+   never used at these widths, so a laptop can never become a narrow portrait strip. */
+@media (orientation:landscape) and (min-width:768px){
+  .landing{height:calc(100vh - 44px);min-height:0;overflow:hidden}
   .landing::before{background-image:url("assets/landing-background.png");background-size:cover;background-position:center bottom}
   .landing::after{background:linear-gradient(to bottom,rgba(2,7,11,.91) 0%,rgba(2,7,11,.72) 44%,rgba(2,7,11,.20) 72%,rgba(2,7,11,.04) 100%)}
-  .content{padding-top:clamp(18px,3.2vh,42px)}
-  .logo{width:min(34vw,500px)}
-  .tagline{margin-top:clamp(10px,1.8vh,22px)}
-  .hero-copy{margin-top:clamp(24px,5vh,62px)}
-  h1{font-size:clamp(40px,5vw,78px)}
-  .subcopy{margin-top:clamp(14px,2.2vh,28px);font-size:clamp(17px,1.65vw,27px)}
-  .cta{margin-top:clamp(16px,2.8vh,34px);min-height:60px;width:min(430px,31vw)}
-  .bottom{bottom:clamp(12px,2vh,26px);gap:8px}.ring{width:42px;height:42px;border-width:3px}.bottom-text{font-size:clamp(9px,.85vw,14px)}
+  .content{height:100%;padding:1.2vh 20px 1.2vh;justify-content:flex-start}
+  .logo{width:min(600px,54vh);max-width:none;flex:0 0 auto}
+  .tagline{margin-top:min(1.1vh,12px);font-size:min(23px,2.5vh);letter-spacing:.42em;flex:0 0 auto}
+  .hero-copy{margin-top:min(2.8vh,30px);width:min(100%,1050px);flex:0 0 auto}
+  h1{font-size:min(78px,9vh);line-height:1.02}
+  .subcopy{margin-top:min(1.8vh,20px);font-size:min(27px,4.5vh);line-height:1.22}
+  .cta{margin-top:min(2vh,22px);min-height:min(68px,10vh);width:min(430px,52vw);font-size:min(25px,3.2vh);gap:min(28px,3vh)}
+  .bottom{bottom:min(1.2vh,13px);gap:min(.8vh,8px)}
+  .ring{width:min(42px,6vh);height:min(42px,6vh);border-width:min(3px,.45vh)}
+  .bottom-text{font-size:min(14px,1.7vh)}
+  .mobile-cta-hit{display:none}
 }
 
-/* Extra-wide desktop: keep the content comfortably readable instead of
-   allowing type to grow with the monitor forever. */
-@media (min-width:1600px) and (orientation:landscape){.logo{width:500px}.hero-copy{max-width:1050px}h1{font-size:78px}.subcopy{font-size:27px}.tagline{font-size:23px}}
+/* LANDSCAPE PHONE
+   This is deliberately NOT the desktop layout. A phone in landscape is still
+   showing the approved portrait composition in full. It is fitted by HEIGHT,
+   never stretched and never cropped. The scenery fills the unused side areas.
+   This is the only mathematically lossless way to show every pixel of the
+   approved 2:3 design inside a short landscape phone viewport. */
+@media (max-width:767px) and (orientation:landscape){
+  .landing{height:calc(100vh - 44px);min-height:0;overflow:hidden;background:#05090d}
+  .landing::before{background-image:url("assets/landing-background-mobile.png");background-size:cover;background-position:center center;filter:none}
+  .landing::after{background:rgba(2,7,11,.34)}
+  .content{position:absolute;inset:0;width:100%;height:100%;padding:0;display:block}
+  .mobile-landscape-art{display:block}
+  .logo,.tagline,.hero-copy,.bottom{display:none}
+  .mobile-cta-hit{display:block;position:absolute;left:50%;top:52.7%;width:min(43%,260px);height:5.9%;transform:translate(-50%,-50%);border-radius:999px;z-index:10;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .site-footer{height:44px;font-size:8px;gap:7px 11px;padding:7px 10px}
+}
+
+/* Extra-wide desktop caps */
+@media (min-width:1600px) and (orientation:landscape){
+  .logo{width:min(600px,54vh)}
+  .hero-copy{max-width:1050px}
+  h1{font-size:min(78px,9vh)}
+  .subcopy{font-size:min(27px,4.5vh)}
+  .tagline{font-size:min(23px,2.5vh)}
+}
 
 /* Phones: use the approved portrait scenery and center every content block
    against the actual viewport. No fixed-width inner column and no transform. */
@@ -77,8 +108,13 @@ h1 .gold{color:var(--gold)}
    * the visual remains pixel-faithful while the button stays accessible/clickable.
    */
   .landing{
-    height:100dvh;
-    min-height:100dvh;
+    /* Keep the artwork at one stable mobile height. Using dvh here makes
+       Android Chrome rescale the entire approved image as browser chrome
+       expands/collapses during scroll, which makes the baked-in copy appear
+       to grow and shrink. svh is intentionally stable; the footer below the
+       hero provides the page scroll instead. */
+    height:100svh;
+    min-height:100svh;
     overflow:hidden;
     background:#05090d;
   }
@@ -137,6 +173,7 @@ h1 .gold{color:var(--gold)}
 @media (max-height:700px) and (orientation:landscape){
   .hero-copy{margin-top:18px}.cta{margin-top:12px;min-height:50px}.bottom{display:none}
 }
+
 @media (prefers-reduced-motion:reduce){.cta{transition:none}}
 </style>
 </head>
@@ -144,6 +181,7 @@ h1 .gold{color:var(--gold)}
 <main aria-label="MagaCircle™ landing page">
   <section class="landing">
     <div class="content">
+      <img class="mobile-landscape-art" src="assets/landing-approved-mockup.png" width="1024" height="1536" alt="" aria-hidden="true" draggable="false">
       <img class="logo" src="assets/MagaCircle_logo_transparent.png" width="501" height="198" alt="MagaCircle™">
       <div class="tagline">Building the Parallel Economy</div>
       <div class="hero-copy">
