@@ -107,14 +107,14 @@ button{cursor:pointer;width:100%;padding:17px 18px;border:1px solid var(--gold);
 
   <section id="referral" class="panel hidden" style="margin-top:35px">
     <div class="kicker">THE FOUNDERS GATE</div>
-    <h1>You're one step away, <span id="gateName">Builder</span></h1>
+    <h1 id="gateHeading">You're one step away, <span id="gateName">Builder</span></h1>
     <div class="referral-intro" id="gateIntro">Bring 5 Builders with you.</div>
     <div id="gateOpeningCopy">
       <p>MagaCircle™ isn't being built for spectators. We're building the first circle around people who are willing to connect, contribute, build and create opportunity together.</p>
       <p>Invite 5 people you believe should be part of the first circle. Your referral count will update as others take the quiz through your link.</p>
     </div>
     <div id="postFiveCopy" class="hidden">
-      <p>You've earned your place in the Founders Waitlist. Now your invites can unlock exclusive prelaunch rewards — and the more Builders you bring to MagaCircle™, the greater your reward.</p>
+      <p><span id="postFiveName">Builder</span>, you've earned your place in the Founders Waitlist. Now your invites can unlock exclusive prelaunch rewards — and the more Builders you bring to MagaCircle™, the greater your reward.</p>
       <p>This is your Founders journey. Keep using your unique link to invite Builders you believe belong in MagaCircle™ and see how far you can take it.</p>
     </div>
 
@@ -152,7 +152,7 @@ button{cursor:pointer;width:100%;padding:17px 18px;border:1px solid var(--gold);
     <div class="share-note" id="shareCardNote">Your Builder Card can be shared again at any time from this page.</div>
 
     <div id="success" class="success hidden">
-      <h3>You're in.</h3>
+      <h3>You're in, <span id="successName">Builder</span>.</h3>
       <p>5 Builders have taken the quiz through your invitation. You've officially completed your path into the MagaCircle™ Founders Waitlist.</p>
       <div class="summary">
         <div class="stat"><strong id="sumProfile">—</strong><span>Builder Profile</span></div>
@@ -248,9 +248,14 @@ function highestFounderMilestone(){let hit=FOUNDER_MILESTONES[0];for(const m of 
 function nextFounderMilestone(){return FOUNDER_MILESTONES.find(m=>referralCount<m.count)||null;}
 function renderFounderJourney(){
   const postFive=referralCount>=5;
+  const displayName=name||"Builder";
+  els("postFiveName").textContent=displayName;
+  els("successName").textContent=displayName;
+  els("gateName").textContent=displayName;
   els("gateOpeningCopy").classList.toggle("hidden",postFive);
   els("postFiveCopy").classList.toggle("hidden",!postFive);
-  els("gateIntro").textContent=postFive?"Your Founders journey starts now.":"Bring 5 Builders with you.";
+  els("gateIntro").textContent=postFive?`Your Founders journey starts now, ${displayName}.`:`Bring 5 Builders with you, ${displayName}.`;
+  els("gateHeading").innerHTML=postFive?`Your Founders journey starts now, <span id="gateName">${escapeHtml(displayName)}</span>.`:`You're one step away, <span id="gateName">${escapeHtml(displayName)}</span>`;
   els("founderJourney").classList.toggle("hidden",!postFive);
   if(!postFive){els("refTarget").textContent=" / 5";els("progressNote").textContent="Reach 5 verified invites to qualify for the MagaCircle™ Founders Waitlist.";return;}
   const next=nextFounderMilestone();
@@ -272,7 +277,7 @@ function renderFounderJourney(){
   }
   els("milestoneLadder").innerHTML=FOUNDER_MILESTONES.slice(1).map(m=>{const earned=referralCount>=m.count;return `<div class="stat" style="${earned?"border-color:#514731;background:rgba(31,27,18,.3)":""}"><strong>${earned?"✓ ":""}${m.count}</strong><span>${m.reward}</span></div>`;}).join("");
 }
-function updateReferralUI(){els("gateName").textContent=name||"Builder";els("refCount").textContent=referralCount;els("refLabel").textContent=ambassadorActive?"Ambassador invites":"Builders invited";els("success").classList.toggle("hidden",referralCount<5);els("ambassadorPanel").classList.toggle("hidden",!ambassadorActive);els("ambCount").textContent=referralCount;els("sumProfile").textContent=profile;els("sumScore").textContent=builderScore;els("confirmProfile").textContent=profile;els("confirmScore").textContent=builderScore;els("simulate").disabled=false;if(referralCount<5){els("refFill").style.width=`${Math.min(referralCount,5)/5*100}%`;}renderFounderJourney();if(referralCount>=5&&!ambassadorActive){els("ambTerms").checked=false;els("activateAmbassador").disabled=true;}saveState();}
+function updateReferralUI(){els("refCount").textContent=referralCount;els("refLabel").textContent=ambassadorActive?"Ambassador invites":"Builders invited";els("success").classList.toggle("hidden",referralCount<5);els("ambassadorPanel").classList.toggle("hidden",!ambassadorActive);els("ambCount").textContent=referralCount;els("sumProfile").textContent=profile;els("sumScore").textContent=builderScore;els("confirmProfile").textContent=profile;els("confirmScore").textContent=builderScore;els("simulate").disabled=false;if(referralCount<5){els("refFill").style.width=`${Math.min(referralCount,5)/5*100}%`;}renderFounderJourney();if(referralCount>=5&&!ambassadorActive){els("ambTerms").checked=false;els("activateAmbassador").disabled=true;}saveState();}
 els("copyLink").onclick=async()=>{try{await navigator.clipboard.writeText(els("refLink").value);els("copyLink").textContent="COPIED";setTimeout(()=>els("copyLink").textContent="COPY LINK",1200);}catch(e){els("refLink").select();document.execCommand("copy");}};
 els("shareText").onclick=()=>{const t=`I just took the MagaCircle™ Builder Quiz. Take yours here: ${els("refLink").value}`;location.href=`sms:?&body=${encodeURIComponent(t)}`;};
 els("shareEmail").onclick=()=>{const s="Join me in the MagaCircle™ first circle";const b=`Take the Builder Quiz and see if you qualify for the MagaCircle™ Founders Waitlist: ${els("refLink").value}`;location.href=`mailto:?subject=${encodeURIComponent(s)}&body=${encodeURIComponent(b)}`;};
