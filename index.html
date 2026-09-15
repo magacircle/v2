@@ -39,25 +39,104 @@ h1 .gold{color:var(--gold)}
 .site-footer{height:44px;display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 14px;background:#050709;color:#77736a;font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-align:center}
 .site-footer a{color:#8f8c83;text-decoration:none}.site-footer a:hover{color:#d7bd7e}
 
-/* Landscape: preserve the approved hierarchy, but use the wide scenic source
-   as the canvas. Content is sized from viewport dimensions, not from a fixed
-   portrait bitmap, so laptops do not get a 2:3 center strip. */
+/* LANDSCAPE — ONE SHARED RESPONSIVE SYSTEM
+   This is intentionally used for landscape phones, tablets, laptops and desktops.
+   The background fills the viewport, while the foreground hierarchy scales from
+   the SHORTER viewport dimension so a short landscape phone cannot clip the CTA.
+   Portrait mobile remains completely separate below. */
 @media (orientation:landscape){
-  .landing::before{background-image:url("assets/landing-background.png");background-size:cover;background-position:center bottom}
-  .landing::after{background:linear-gradient(to bottom,rgba(2,7,11,.91) 0%,rgba(2,7,11,.72) 44%,rgba(2,7,11,.20) 72%,rgba(2,7,11,.04) 100%)}
-  .content{padding-top:clamp(18px,3.2vh,42px)}
-  .logo{width:min(34vw,500px)}
-  .tagline{margin-top:clamp(10px,1.8vh,22px)}
-  .hero-copy{margin-top:clamp(24px,5vh,62px)}
-  h1{font-size:clamp(40px,5vw,78px)}
-  .subcopy{margin-top:clamp(14px,2.2vh,28px);font-size:clamp(17px,1.65vw,27px)}
-  .cta{margin-top:clamp(16px,2.8vh,34px);min-height:60px;width:min(430px,31vw)}
-  .bottom{bottom:clamp(12px,2vh,26px);gap:8px}.ring{width:42px;height:42px;border-width:3px}.bottom-text{font-size:clamp(9px,.85vw,14px)}
+  .landing{
+    height:calc(100vh - 44px);
+    min-height:0;
+    overflow:hidden;
+  }
+  .landing::before{
+    background-image:url("assets/landing-background.png");
+    background-size:cover;
+    background-position:center bottom;
+  }
+  .landing::after{
+    background:linear-gradient(to bottom,rgba(2,7,11,.91) 0%,rgba(2,7,11,.72) 44%,rgba(2,7,11,.20) 72%,rgba(2,7,11,.04) 100%);
+  }
+
+  .content{
+    height:100%;
+    padding:1.2vh 20px 1.2vh;
+    justify-content:flex-start;
+  }
+
+  /* Every foreground dimension is tied to viewport height and capped for desktop.
+     This is the crucial difference: 812x375 and 1920x1080 use the same proportions,
+     so the complete hierarchy remains visible at both sizes. */
+  .logo{
+    width:min(600px,54vh);
+    max-width:none;
+    flex:0 0 auto;
+  }
+  .tagline{
+    margin-top:min(1.1vh,12px);
+    font-size:min(23px,2.5vh);
+    letter-spacing:.42em;
+    flex:0 0 auto;
+  }
+  .hero-copy{
+    margin-top:min(2.8vh,30px);
+    width:min(100%,1050px);
+    flex:0 0 auto;
+  }
+  h1{
+    font-size:min(78px,9vh);
+    line-height:1.02;
+  }
+  .subcopy{
+    margin-top:min(1.8vh,20px);
+    font-size:min(27px,4.5vh);
+    line-height:1.22;
+  }
+  .cta{
+    margin-top:min(2vh,22px);
+    min-height:min(68px,10vh);
+    width:min(430px,52vw);
+    font-size:min(25px,3.2vh);
+    gap:min(28px,3vh);
+  }
+
+  .bottom{
+    bottom:min(1.2vh,13px);
+    gap:min(.8vh,8px);
+  }
+  .ring{
+    width:min(42px,6vh);
+    height:min(42px,6vh);
+    border-width:min(3px,.45vh);
+  }
+  .bottom-text{
+    font-size:min(14px,1.7vh);
+  }
+
+  /* Short landscape phones: use the dedicated 1024x480 scenery because it
+     preserves more of the five-person scene. The foreground sizing above is
+     already height-based, so nothing gets clipped. */
+  @media (max-width:900px){
+    .landing::before{
+      background-image:url("assets/landing-background-mobile.png");
+      background-position:center center;
+    }
+  }
 }
 
-/* Extra-wide desktop: keep the content comfortably readable instead of
-   allowing type to grow with the monitor forever. */
-@media (min-width:1600px) and (orientation:landscape){.logo{width:500px}.hero-copy{max-width:1050px}h1{font-size:78px}.subcopy{font-size:27px}.tagline{font-size:23px}}
+/* Extra-wide desktop: cap the largest elements without changing the shared
+   landscape geometry used by smaller devices. */
+@media (min-width:1600px) and (orientation:landscape){
+  .logo{width:min(600px,54vh)}
+  .hero-copy{max-width:1050px}
+  h1{font-size:min(78px,9vh)}
+  .subcopy{font-size:min(27px,4.5vh)}
+  .tagline{font-size:min(23px,2.5vh)}
+}
+
+/* The transparent CTA exists only for the approved portrait artwork. */
+@media (orientation:landscape){.mobile-cta-hit{display:none}}
 
 /* Phones: use the approved portrait scenery and center every content block
    against the actual viewport. No fixed-width inner column and no transform. */
@@ -142,6 +221,7 @@ h1 .gold{color:var(--gold)}
 @media (max-height:700px) and (orientation:landscape){
   .hero-copy{margin-top:18px}.cta{margin-top:12px;min-height:50px}.bottom{display:none}
 }
+
 @media (prefers-reduced-motion:reduce){.cta{transition:none}}
 </style>
 </head>
