@@ -1,22 +1,21 @@
-# MagaCircle™ Landing Page — V12
+# MagaCircle™ — Prelaunch Invite / Founding Rewards Prototype V23
 
-## Responsive architecture
+This build implements Specification ID 74126 — Revised Final.
 
-- **Portrait mobile (max-width 600px, portrait):** preserves the approved `assets/landing-approved-mockup.png` composition as the V5 baseline. The portrait branch is isolated from landscape CSS.
-- **All landscape devices:** use one shared HTML/CSS composition over the clean scenic `assets/landing-background.png`. This applies to landscape phones, tablets, laptops, and desktops.
-- The landscape CTA is a real HTML link and is explicitly centered inside the hero copy.
-- The landscape “The First Circle Is Forming” indicator is centered as a single CSS group.
+## Key changes
+- Removed the Ambassador Program and all live Ambassador architecture/copy.
+- Reworked user-facing terminology to Invite / Confirmed Invite / Founding Rewards.
+- Added the 1,000 Confirmed Invite milestone.
+- Updated reward language to Founding Membership Credit.
+- Added prototype qualifying-event simulation controls (+1, +5, +10, +50, +100, +250, +500, +1,000).
+- Added prototype event logging and duplicate/self-invite rejection tests.
+- Migrated prototype state key from `magacircle_builder_v3` to `magacircle_builder_v4`; legacy Ambassador state is not migrated.
+- Added `invite-prelaunch-rules.html` and linked it from the main Terms page.
+- Retired `ambassador-terms.html`.
+- Added social metadata to `quiz.html`.
+- Preserved the landing-page `index.html` from the locked V21/V17 baseline byte-for-byte.
 
-## Asset audit
+## Prototype limitation
+The simulator and localStorage are testing infrastructure only. Production attribution remains intended for the production referral/invite platform and server-side systems.
 
-The repository contains several historical composite artwork files. They are retained for reference but are **not referenced by `index.html`**. In particular, `landing-landscape.png`, `landing-responsive-landscape.png`, and `landing-desktop-landscape.png` contain baked-in foreground/portrait content and should not be used as the live responsive background.
-
-`landing-background-mobile.png` also contains a baked-in gold circle indicator at the bottom. V11 used that file for small landscape devices, which could conflict visually with the live CSS indicator. V12 removes that reference and uses the clean `landing-background.png` for all landscape devices.
-
-## Live landing assets used by index.html
-
-- Portrait: `assets/landing-approved-mockup.png`
-- Landscape scenic background: `assets/landing-background.png`
-- Landscape logo: `assets/MagaCircle_logo_transparent.png`
-
-No PHP or server-side code is required for this static GitHub Pages implementation.
+The legal rules page is a website-ready draft and should receive legal review before production launch.
