@@ -23,3 +23,18 @@ This build restores the working V22 Quiz/Builder experience while layering the l
 The simulator, localStorage, temporary Invite code, and test event log are prototype infrastructure only. Production attribution and reward verification remain intended for the production Invite/referral platform and server-side systems.
 
 The legal pages are website-ready drafts and should receive qualified legal review before production launch.
+
+
+## V26.1 Builder Card Surgical Update
+- Built directly from the exact reverted V25 working build supplied for this checkpoint.
+- `index.html` is preserved byte-for-byte from V25.
+- All non-quiz files are preserved from V25.
+- Builder Card changes are isolated to `quiz.html`.
+- Generated Builder Card no longer contains Share or Save buttons.
+- Website-level Share Builder Card and Save Your Card controls remain outside the generated card.
+- Builder Card dynamically displays First Name, the single current Builder archetype and its exact Unicode icon, Builder Score™, profile-specific copy, the four dimensions, and the unique Invite Link.
+- The four dimensions remain PEOPLE, NETWORK, COMMUNITY, and OPPORTUNITY.
+- The generated card includes the CTA `WHAT KIND OF BUILDER ARE YOU?` and the invite URL.
+- No Google/Apple authentication was added in this checkpoint.
+- No Ambassador functionality was introduced.
+- Existing quiz questions, scoring, state persistence, recovery, invite simulation, Founders journey, and confirmation flow were not intentionally redesigned.
