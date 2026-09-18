@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MagaCircle™ — Sign In</title>
+<meta name="description" content="Sign in to your MagaCircle™ Builder account.">
+<style>
+:root{--bg:#08090a;--panel:#101214;--text:#d8d4c8;--muted:#96938b;--gold:#a99463;--line:#302d27}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% 0%,#17191b 0,#0b0d0f 48%,#08090a 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}.auth-shell{width:min(100%,520px)}.panel{background:rgba(13,15,17,.96);border:1px solid #272923;border-radius:18px;padding:34px 28px;box-shadow:0 24px 70px rgba(0,0,0,.45);text-align:center}.logo{width:min(270px,75%);height:auto;opacity:.9}.eyebrow{margin-top:24px;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.headline{font-family:Georgia,serif;font-size:34px;line-height:1.08;margin:10px 0 10px}.sub{color:var(--muted);font-size:14px;line-height:1.55;margin:0 auto 24px;max-width:410px}.auth-buttons{display:grid;gap:10px}.auth-btn{appearance:none;border:1px solid #45423a;border-radius:9px;min-height:50px;padding:0 18px;background:#16181a;color:#e6e1d7;font:800 12px Inter,system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;cursor:pointer}.auth-btn:hover{border-color:#756744}.auth-btn.primary{background:#a99463;border-color:#a99463;color:#08090a}.auth-btn.apple{background:#f0eee8;color:#08090a;border-color:#f0eee8}.auth-btn:disabled{opacity:.55;cursor:wait}.status{min-height:22px;margin-top:16px;font-size:12px;color:var(--muted);line-height:1.45}.profile{display:none;border-top:1px solid var(--line);margin-top:24px;padding-top:22px}.profile.visible{display:block}.avatar{width:76px;height:76px;border-radius:50%;margin:0 auto 12px;border:1px solid #4c4638;object-fit:cover;background:#1a1c1f;display:flex;align-items:center;justify-content:center;font-size:28px}.profile-name{font:700 22px Georgia,serif}.profile-email{font-size:12px;color:var(--muted);margin-top:4px}.actions{display:grid;gap:9px;margin-top:18px}.secondary{background:transparent}.fineprint{margin-top:22px;color:#6f706b;font-size:11px;line-height:1.5}.fineprint a{color:#a99463;text-decoration:none}.hidden{display:none!important}@media(max-width:520px){body{padding:14px}.panel{padding:28px 20px}.headline{font-size:30px}}
+</style>
+</head>
+<body>
+<main class="auth-shell">
+<section class="panel">
+<img class="logo" src="assets/MagaCircle_logo_transparent.png" alt="MagaCircle™">
+<div class="eyebrow">Builder Account</div>
+<h1 class="headline">Welcome, Builder.</h1>
+<p class="sub" id="intro">Sign in with Google or Apple to create or access your MagaCircle™ Builder account.</p>
+<div class="auth-buttons" id="signInButtons">
+<button class="auth-btn primary" id="googleBtn" type="button">Continue with Google</button>
+<button class="auth-btn apple" id="appleBtn" type="button">Continue with Apple</button>
+</div>
+<div class="status" id="status" role="status" aria-live="polite"></div>
+<div class="profile" id="profilePanel">
+<div class="avatar" id="avatar">MC</div>
+<div class="profile-name" id="profileName">Builder</div>
+<div class="profile-email" id="profileEmail"></div>
+<div class="actions">
+<button class="auth-btn primary" id="continueBtn" type="button">Continue to MagaCircle™</button>
+<button class="auth-btn secondary" id="signOutBtn" type="button">Sign Out</button>
+</div>
+</div>
+<div class="fineprint">By continuing, you agree to the applicable <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</div>
+</section>
+</main>
+<script type="module" src="auth.js"></script>
+</body>
+</html>
